@@ -1,0 +1,2326 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Game Ular Edukasi: Sketsa & Ilustrasi | SMKS PGRI 2 Pasuruan</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif'],
+          },
+          colors: {
+            dkv: {
+              primary: '#1E3A8A',
+              accent: '#F59E0B',
+              surface: '#F8FAFC'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Gaya Kustom & Animasi */
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: radial-gradient(circle at top left, #eef2ff 0%, #f8fafc 45%, #fef3c7 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Pola Grid Studio Gambar DKV pada latar belakang */
+    .studio-grid {
+      background-image: 
+        linear-gradient(to right, rgba(99, 102, 241, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(99, 102, 241, 0.06) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    /* Efek Tombol Game 3D */
+    .btn-game {
+      transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 0 rgba(15, 23, 42, 0.2);
+    }
+    .btn-game:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 rgba(15, 23, 42, 0.2);
+    }
+
+    /* D-Pad Tombol Virtual Smartphone */
+    .dpad-btn {
+      transition: transform 0.08s ease, background-color 0.1s ease;
+      touch-action: manipulation;
+    }
+    .dpad-btn:active, .dpad-btn.pressed {
+      transform: scale(0.92);
+      background-color: #1d4ed8 !important;
+      color: white !important;
+    }
+
+    /* Bingkai Sertifikat Resmi */
+    .certificate-frame {
+      background: #fffdf9;
+      border: 12px solid #1e3a8a;
+      box-shadow: inset 0 0 0 3px #d97706, inset 0 0 0 7px #1e3a8a, 0 20px 35px -10px rgba(0, 0, 0, 0.18);
+      position: relative;
+    }
+
+    .certificate-corner {
+      position: absolute;
+      width: 36px;
+      height: 36px;
+      border-color: #d97706;
+      border-style: solid;
+      pointer-events: none;
+    }
+
+    /* Animasi Pop-in Modal */
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.92) translateY(10px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .animate-pop {
+      animation: popIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Custom Scrollbar untuk Materi */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: 999px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    /* Pengaturan Cetak Sertifikat (Print / Save PDF) */
+    @media print {
+      @page {
+        size: landscape;
+        margin: 8mm;
+      }
+      body * {
+        visibility: hidden;
+      }
+      #certificate-printable, #certificate-printable * {
+        visibility: visible;
+      }
+      #certificate-printable {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0 !important;
+        padding: 20px 28px !important;
+        box-shadow: inset 0 0 0 3px #d97706, inset 0 0 0 7px #1e3a8a !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="studio-grid text-slate-800 flex flex-col justify-between">
+
+  <!-- HEADER / TOP BAR GLOBAL -->
+  <header class="w-full bg-white/90 backdrop-blur-md border-b border-slate-200/80 sticky top-0 z-30 no-print">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-2">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-800 to-indigo-600 text-white flex items-center justify-center shadow-md shrink-0">
+          <i class="fa-solid fa-palette text-lg"></i>
+        </div>
+        <div>
+          <h1 class="text-sm sm:text-base font-extrabold text-slate-900 leading-tight tracking-tight">
+            SMKS PGRI 2 PASURUAN
+          </h1>
+          <p class="text-xs text-slate-500 font-medium">
+            Dasar-dasar DKV &bull; <span class="text-blue-700 font-semibold">Sketsa &amp; Ilustrasi</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <!-- Tombol Audio Mute/Unmute -->
+        <button id="btn-sound-toggle" onclick="toggleSound()" title="Suara Efek Game" class="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition flex items-center gap-1.5 text-xs font-semibold">
+          <i id="sound-icon" class="fa-solid fa-volume-high text-blue-700"></i>
+          <span class="hidden sm:inline" id="sound-label">Suara Aktif</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- NOTIFIKASI TOAST CUSTOM (PENGGANTI ALERT) -->
+  <div id="toast-container" class="fixed top-16 left-1/2 -translate-x-1/2 z-50 pointer-events-none flex flex-col items-center gap-2 w-11/12 max-w-md no-print"></div>
+
+  <!-- KONTEN UTAMA -->
+  <main class="flex-grow w-full max-w-6xl mx-auto px-3 sm:px-6 py-4 sm:py-6 flex flex-col justify-center">
+
+    <!-- ========================================================= -->
+    <!-- 1. LAYAR AWAL: IDENTITAS SISWA & KUSTOMISASI ULAR         -->
+    <!-- ========================================================= -->
+    <section id="screen-home" class="animate-pop">
+      <div class="bg-white rounded-3xl shadow-xl border border-slate-200/80 overflow-hidden">
+        <!-- Banner Atas -->
+        <div class="bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-800 p-6 sm:p-8 text-white relative overflow-hidden">
+          <div class="absolute -right-8 -top-8 w-44 h-44 rounded-full bg-white/10 blur-xl pointer-events-none"></div>
+          <div class="absolute right-12 bottom-0 w-24 h-24 rounded-full bg-amber-400/20 blur-lg pointer-events-none"></div>
+          
+          <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/20 border border-amber-300/40 text-amber-200 text-xs font-bold mb-2">
+                <i class="fa-solid fa-graduation-cap"></i> MEDIA PEMBELAJARAN INTERAKTIF KELAS X
+              </span>
+              <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
+                Game Ular Edukasi: Sketsa &amp; Ilustrasi
+              </h2>
+              <p class="text-blue-100 text-sm sm:text-base mt-1 max-w-2xl">
+                Pelajari konsep dasar menggambar, kendalikan ular senimanmu, kumpulkan apel ilmu, dan raih Sertifikat Kelulusan resmi!
+              </p>
+            </div>
+            <div class="shrink-0 bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-4 py-3 text-xs">
+              <div class="text-blue-200">Mata Pelajaran:</div>
+              <div class="font-bold text-white text-sm">Dasar-dasar DKV</div>
+              <div class="text-amber-300 mt-1 font-semibold"><i class="fa-solid fa-star mr-1"></i>3 Level &bull; 10 Soal</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Identitas & Kustomisasi Grid -->
+        <div class="p-5 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
+          
+          <!-- Kolom Kiri: Data Siswa -->
+          <div class="lg:col-span-6 space-y-5">
+            <div class="flex items-center gap-2 border-b border-slate-100 pb-2">
+              <span class="w-7 h-7 rounded-lg bg-blue-100 text-blue-800 flex items-center justify-center font-bold text-sm">1</span>
+              <h3 class="font-bold text-slate-800 text-lg">Identitas Peserta Didik</h3>
+            </div>
+
+            <div>
+              <label for="input-nama" class="block text-sm font-bold text-slate-700 mb-1.5">
+                Nama Lengkap Siswa <span class="text-rose-500">*</span>
+              </label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400">
+                  <i class="fa-solid fa-user"></i>
+                </span>
+                <input type="text" id="input-nama" placeholder="Contoh: Ahmad Budi Santoso" 
+                  class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 outline-none transition text-sm sm:text-base font-medium bg-slate-50/50 focus:bg-white" />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="input-kelas" class="block text-sm font-bold text-slate-700 mb-1.5">
+                  Kelas <span class="text-rose-500">*</span>
+                </label>
+                <div class="relative">
+                  <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400">
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                  </span>
+                  <input type="text" id="input-kelas" placeholder="Contoh: X DKV 1" 
+                    class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 outline-none transition text-sm sm:text-base font-medium bg-slate-50/50 focus:bg-white" />
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-bold text-slate-700 mb-1.5">
+                  Konsentrasi Keahlian / Jurusan <span class="text-rose-500">*</span>
+                </label>
+                <div class="grid grid-cols-2 gap-2.5">
+                  <label class="cursor-pointer">
+                    <input type="radio" name="jurusan" value="DKV" class="peer sr-only" checked>
+                    <div class="p-3 rounded-xl border-2 border-slate-200 bg-slate-50 text-center font-bold text-sm text-slate-600 peer-checked:border-blue-700 peer-checked:bg-blue-50 peer-checked:text-blue-900 transition">
+                      <i class="fa-solid fa-pen-nib block text-base mb-0.5"></i> DKV
+                    </div>
+                  </label>
+                  <label class="cursor-pointer">
+                    <input type="radio" name="jurusan" value="MP" class="peer sr-only">
+                    <div class="p-3 rounded-xl border-2 border-slate-200 bg-slate-50 text-center font-bold text-sm text-slate-600 peer-checked:border-blue-700 peer-checked:bg-blue-50 peer-checked:text-blue-900 transition">
+                      <i class="fa-solid fa-briefcase block text-base mb-0.5"></i> MP
+                    </div>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Info Sistem Penilaian -->
+            <div class="bg-amber-50/80 border border-amber-200 rounded-2xl p-4 text-xs sm:text-sm text-amber-900 space-y-1">
+              <div class="font-bold flex items-center gap-1.5 text-amber-800">
+                <i class="fa-solid fa-award"></i> Ketentuan Sertifikat Kelulusan:
+              </div>
+              <ul class="list-disc list-inside space-y-0.5 text-amber-900/90 pl-1">
+                <li><strong>Skor 100 Poin:</strong> Sertifikat <em>Lulus Istimewa</em></li>
+                <li><strong>Skor 66 – 99 Poin:</strong> Sertifikat <em>Lulus Terbaik</em></li>
+                <li><strong>Skor &le; 65 Poin:</strong> Sertifikat <em>Tidak Lulus</em> (Perlu mengulang)</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Kolom Kanan: Kustomisasi Ular & Live Preview -->
+          <div class="lg:col-span-6 space-y-5">
+            <div class="flex items-center gap-2 border-b border-slate-100 pb-2">
+              <span class="w-7 h-7 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center font-bold text-sm">2</span>
+              <h3 class="font-bold text-slate-800 text-lg">Kustomisasi Karakter Ular</h3>
+            </div>
+
+            <!-- Live Preview Box -->
+            <div class="bg-slate-900 rounded-2xl p-4 flex flex-col items-center justify-center relative overflow-hidden border-2 border-slate-800 shadow-inner">
+              <span class="absolute top-2.5 left-3 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                <i class="fa-solid fa-eye mr-1 text-amber-400"></i> Preview Karakter
+              </span>
+              <span id="preview-badge-name" class="absolute top-2.5 right-3 text-[11px] font-semibold text-amber-300 bg-white/10 px-2.5 py-0.5 rounded-full">
+                Hijau Klasik &bull; Tanpa Aksesoris
+              </span>
+              <canvas id="preview-canvas" width="320" height="105" class="w-full max-w-[320px] h-[105px] mt-3"></canvas>
+            </div>
+
+            <!-- Pilihan Warna Ular -->
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+                Pilih Warna Ular:
+              </label>
+              <div id="color-options" class="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                <!-- Diisi otomatis via JS -->
+              </div>
+            </div>
+
+            <!-- Pilihan Aksesoris Ular -->
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+                Pilih Aksesoris Seniman:
+              </label>
+              <div id="accessory-options" class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                <!-- Diisi otomatis via JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tombol Aksi Utama -->
+        <div class="bg-slate-50 px-5 sm:px-8 py-5 border-t border-slate-200/80 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div class="text-xs text-slate-500 font-medium">
+            Dibuat oleh: <span class="font-bold text-slate-800">angjovano</span> &bull; SMKS PGRI 2 Pasuruan
+          </div>
+          <div class="flex flex-col sm:flex-row w-full sm:w-auto gap-3">
+            <button onclick="openStudyScreen()" class="btn-game w-full sm:w-auto px-6 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2">
+              <i class="fa-solid fa-book-open"></i> Belajar Materi Dulu
+            </button>
+            <button onclick="startNewGame()" class="btn-game w-full sm:w-auto px-7 py-3.5 rounded-xl bg-blue-800 hover:bg-blue-900 text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2">
+              <i class="fa-solid fa-play"></i> Mulai Main Game
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- 2. LAYAR MATERI PEMBELAJARAN ("SKETSA DAN ILUSTRASI")     -->
+    <!-- ========================================================= -->
+    <section id="screen-study" class="hidden animate-pop">
+      <div class="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden">
+        <!-- Header Materi -->
+        <div class="bg-gradient-to-r from-amber-500 to-orange-500 p-5 sm:p-7 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <span class="inline-block px-3 py-1 rounded-full bg-white/20 text-xs font-bold mb-1">
+              MODUL PEMBELAJARAN DASAR-DASAR DKV
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold">Materi: Sketsa dan Ilustrasi</h2>
+            <p class="text-amber-50 text-sm mt-1">Pelajari 6 pokok bahasan di bawah ini sebelum menjawab kuis di dalam game.</p>
+          </div>
+          <button onclick="backToHome()" class="self-start sm:self-center px-4 py-2.5 rounded-xl bg-white/20 hover:bg-white/30 text-white font-bold text-sm transition flex items-center gap-2">
+            <i class="fa-solid fa-arrow-left"></i> Kembali
+          </button>
+        </div>
+
+        <!-- Navigasi Tab 6 Topik Materi -->
+        <div class="bg-slate-100 p-3 border-b border-slate-200 overflow-x-auto">
+          <div id="study-tabs" class="flex gap-2 min-w-max">
+            <!-- Tab buttons di-render via JS -->
+          </div>
+        </div>
+
+        <!-- Konten Materi Aktif -->
+        <div id="study-content" class="p-5 sm:p-8 min-h-[340px]">
+          <!-- Isi materi di-render via JS -->
+        </div>
+
+        <!-- Footer Materi -->
+        <div class="bg-slate-50 px-5 sm:px-8 py-4 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <button id="btn-prev-topic" onclick="changeStudyTopic(-1)" class="px-4 py-2 rounded-xl border border-slate-300 bg-white hover:bg-slate-100 text-slate-700 font-bold text-sm transition">
+              <i class="fa-solid fa-chevron-left mr-1"></i> Sebelumnya
+            </button>
+            <button id="btn-next-topic" onclick="changeStudyTopic(1)" class="px-4 py-2 rounded-xl border border-slate-300 bg-white hover:bg-slate-100 text-slate-700 font-bold text-sm transition">
+              Selanjutnya <i class="fa-solid fa-chevron-right ml-1"></i>
+            </button>
+          </div>
+          <button onclick="startNewGame()" class="btn-game w-full sm:w-auto px-7 py-3 rounded-xl bg-blue-800 hover:bg-blue-900 text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2">
+            <i class="fa-solid fa-gamepad"></i> Siap Bermain Sekarang!
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- 3. LAYAR GAMEPLAY UTAMA (ULAR MAKAN APEL + HUD + D-PAD)   -->
+    <!-- ========================================================= -->
+    <section id="screen-game" class="hidden animate-pop">
+      <div class="max-w-4xl mx-auto space-y-3">
+        
+        <!-- HUD Atas: Identitas, Level, Skor, Nyawa, Progress -->
+        <div class="bg-white rounded-2xl p-3 sm:p-4 shadow-md border border-slate-200 flex flex-wrap items-center justify-between gap-3">
+          <!-- Info Siswa -->
+          <div class="flex items-center gap-2.5">
+            <div id="hud-avatar-dot" class="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-extrabold text-sm shadow-sm">
+              DKV
+            </div>
+            <div>
+              <div id="hud-nama" class="font-bold text-slate-900 text-sm leading-tight truncate max-w-[140px] sm:max-w-[200px]">Nama Siswa</div>
+              <div id="hud-kelas" class="text-xs text-slate-500 font-medium">X DKV 1 &bull; DKV</div>
+            </div>
+          </div>
+
+          <!-- Status Indikator Game -->
+          <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
+            <!-- Level -->
+            <div class="px-3 py-1.5 rounded-xl bg-indigo-50 border border-indigo-200 text-indigo-900 text-xs font-extrabold flex items-center gap-1.5">
+              <i class="fa-solid fa-layer-group text-indigo-600"></i>
+              <span>LEVEL <span id="hud-level">1</span>/3</span>
+            </div>
+            <!-- Progress Soal -->
+            <div class="px-3 py-1.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs font-extrabold flex items-center gap-1.5">
+              <i class="fa-solid fa-apple-whole text-rose-500"></i>
+              <span>SOAL <span id="hud-progress">0</span>/10</span>
+            </div>
+            <!-- Skor -->
+            <div class="px-3 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs font-extrabold flex items-center gap-1.5">
+              <i class="fa-solid fa-star text-amber-500"></i>
+              <span>SKOR: <span id="hud-score">0</span></span>
+            </div>
+            <!-- Nyawa -->
+            <div id="hud-lives" class="px-2.5 py-1.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-600 text-xs font-extrabold flex items-center gap-1" title="Sisa Nyawa">
+              <i class="fa-solid fa-heart"></i>
+              <i class="fa-solid fa-heart"></i>
+              <i class="fa-solid fa-heart"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bar Tombol Kontrol Game (Pause, Stop, Reload, Menu Utama) -->
+        <div class="bg-white/90 rounded-2xl p-2.5 shadow-sm border border-slate-200 flex flex-wrap items-center justify-between gap-2">
+          <div class="text-xs font-semibold text-slate-500 px-2 hidden md:flex items-center gap-2">
+            <span class="px-2 py-0.5 bg-slate-100 rounded border border-slate-300 font-mono text-slate-700">WASD</span> / 
+            <span class="px-2 py-0.5 bg-slate-100 rounded border border-slate-300 font-mono text-slate-700">&uarr;&darr;&larr;&rarr;</span>
+            <span>Gerakkan Ular &amp; Makan Apel!</span>
+          </div>
+
+          <div class="flex items-center justify-center gap-2 w-full md:w-auto">
+            <button id="btn-pause" onclick="togglePauseGame()" class="flex-1 md:flex-none px-3.5 py-2 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 font-bold text-xs flex items-center justify-center gap-1.5 transition">
+              <i id="pause-icon" class="fa-solid fa-pause"></i>
+              <span id="pause-text">Pause</span>
+            </button>
+            <button onclick="confirmStopGame()" class="flex-1 md:flex-none px-3.5 py-2 rounded-xl bg-rose-100 hover:bg-rose-200 text-rose-900 font-bold text-xs flex items-center justify-center gap-1.5 transition">
+              <i class="fa-solid fa-stop"></i>
+              <span>Stop</span>
+            </button>
+            <button onclick="reloadGame()" class="flex-1 md:flex-none px-3.5 py-2 rounded-xl bg-blue-100 hover:bg-blue-200 text-blue-900 font-bold text-xs flex items-center justify-center gap-1.5 transition">
+              <i class="fa-solid fa-rotate-right"></i>
+              <span>Reload</span>
+            </button>
+            <button onclick="returnToMainMenu()" class="flex-1 md:flex-none px-3.5 py-2 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold text-xs flex items-center justify-center gap-1.5 transition">
+              <i class="fa-solid fa-house"></i>
+              <span>Menu Utama</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Area Kanvas Game Responsif -->
+        <div class="relative bg-slate-900 rounded-3xl p-2 sm:p-3 shadow-xl border-4 border-slate-800 flex flex-col items-center justify-center">
+          <div id="canvas-wrapper" class="w-full max-w-[540px] aspect-square relative rounded-2xl overflow-hidden bg-slate-950">
+            <canvas id="game-canvas" class="w-full h-full block"></canvas>
+
+            <!-- Overlay Jeda (Pause) -->
+            <div id="overlay-pause" class="hidden absolute inset-0 bg-slate-900/80 backdrop-blur-sm flex flex-col items-center justify-center text-white p-6 text-center z-10">
+              <div class="w-16 h-16 rounded-2xl bg-amber-500 text-white flex items-center justify-center text-3xl mb-3 shadow-lg">
+                <i class="fa-solid fa-pause"></i>
+              </div>
+              <h3 class="text-2xl font-extrabold">Permainan Dijeda</h3>
+              <p class="text-slate-300 text-sm mt-1 mb-5">Ambil napas sejenak sebelum melanjutkan petualangan seni!</p>
+              <button onclick="togglePauseGame()" class="btn-game px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm flex items-center gap-2">
+                <i class="fa-solid fa-play"></i> Lanjutkan Permainan
+              </button>
+            </div>
+
+            <!-- Overlay Naik Level -->
+            <div id="overlay-levelup" class="hidden absolute inset-0 bg-blue-950/90 backdrop-blur-md flex flex-col items-center justify-center text-white p-6 text-center z-10">
+              <span class="px-3 py-1 rounded-full bg-amber-400 text-slate-900 font-extrabold text-xs mb-2">
+                NAIK TINGKAT!
+              </span>
+              <h3 id="levelup-title" class="text-3xl font-extrabold text-white">Level 2: Menengah</h3>
+              <p id="levelup-desc" class="text-blue-200 text-sm mt-2 max-w-xs">
+                Kecepatan ular meningkat dan waktu menjawab soal menjadi 18 detik!
+              </p>
+              <div class="mt-4 text-xs text-amber-300 font-bold animate-pulse">
+                Bersiap dalam beberapa detik...
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- KONTROL VIRTUAL D-PAD UNTUK SMARTPHONE & TABLET (JUGA BISA DIKLIK DI PC) -->
+        <div class="bg-white rounded-3xl p-4 shadow-md border border-slate-200 flex flex-col items-center justify-center">
+          <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2 flex items-center gap-1.5">
+            <i class="fa-solid fa-mobile-screen-button text-blue-600"></i> Kontrol Layar Sentuh / D-Pad (Geser Kanvas atau Tekan Tombol)
+          </div>
+          <div class="grid grid-cols-3 gap-2 w-48 sm:w-52">
+            <div></div>
+            <button type="button" onpointerdown="handleDirectionInput('UP')" class="dpad-btn h-14 rounded-2xl bg-slate-100 hover:bg-blue-100 border-2 border-slate-300 text-slate-800 flex items-center justify-center text-xl font-bold shadow-sm" aria-label="Atas">
+              <i class="fa-solid fa-caret-up text-2xl"></i>
+            </button>
+            <div></div>
+
+            <button type="button" onpointerdown="handleDirectionInput('LEFT')" class="dpad-btn h-14 rounded-2xl bg-slate-100 hover:bg-blue-100 border-2 border-slate-300 text-slate-800 flex items-center justify-center text-xl font-bold shadow-sm" aria-label="Kiri">
+              <i class="fa-solid fa-caret-left text-2xl"></i>
+            </button>
+            <div class="h-14 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-400 text-xs">
+              <i class="fa-solid fa-gamepad"></i>
+            </div>
+            <button type="button" onpointerdown="handleDirectionInput('RIGHT')" class="dpad-btn h-14 rounded-2xl bg-slate-100 hover:bg-blue-100 border-2 border-slate-300 text-slate-800 flex items-center justify-center text-xl font-bold shadow-sm" aria-label="Kanan">
+              <i class="fa-solid fa-caret-right text-2xl"></i>
+            </button>
+
+            <div></div>
+            <button type="button" onpointerdown="handleDirectionInput('DOWN')" class="dpad-btn h-14 rounded-2xl bg-slate-100 hover:bg-blue-100 border-2 border-slate-300 text-slate-800 flex items-center justify-center text-xl font-bold shadow-sm" aria-label="Bawah">
+              <i class="fa-solid fa-caret-down text-2xl"></i>
+            </button>
+            <div></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- 4. LAYAR SERTIFIKAT KELULUSAN DIGITAL                     -->
+    <!-- ========================================================= -->
+    <section id="screen-certificate" class="hidden animate-pop">
+      <div class="max-w-4xl mx-auto space-y-5">
+        
+        <!-- Bar Aksi Sertifikat (Tidak ikut tercetak) -->
+        <div class="bg-white rounded-2xl p-4 shadow-md border border-slate-200 flex flex-wrap items-center justify-between gap-3 no-print">
+          <div class="flex items-center gap-2.5">
+            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-lg">
+              <i class="fa-solid fa-certificate"></i>
+            </div>
+            <div>
+              <h3 class="font-bold text-slate-900 text-sm sm:text-base">Evaluasi Pembelajaran Selesai!</h3>
+              <p class="text-xs text-slate-500">Simpan atau cetak sertifikat kelulusanmu di bawah ini.</p>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-2 w-full sm:w-auto">
+            <button onclick="window.print()" class="btn-game flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2">
+              <i class="fa-solid fa-print"></i> Cetak / Simpan PDF
+            </button>
+            <button onclick="reloadGame()" class="btn-game flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-blue-800 hover:bg-blue-900 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2">
+              <i class="fa-solid fa-rotate-right"></i> Main Lagi
+            </button>
+            <button onclick="returnToMainMenu()" class="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold text-xs sm:text-sm flex items-center justify-center gap-2">
+              <i class="fa-solid fa-house"></i> Menu Utama
+            </button>
+          </div>
+        </div>
+
+        <!-- DOKUMEN SERTIFIKAT RESMI -->
+        <div id="certificate-printable" class="certificate-frame rounded-xl p-6 sm:p-10 text-slate-900">
+          <!-- Ornamen Sudut -->
+          <div class="certificate-corner top-3 left-3 border-t-4 border-l-4"></div>
+          <div class="certificate-corner top-3 right-3 border-t-4 border-r-4"></div>
+          <div class="certificate-corner bottom-3 left-3 border-b-4 border-l-4"></div>
+          <div class="certificate-corner bottom-3 right-3 border-b-4 border-r-4"></div>
+
+          <!-- Kop Sertifikat -->
+          <div class="text-center border-b-2 border-amber-500/60 pb-4">
+            <div class="inline-flex items-center gap-2 text-blue-900 font-extrabold text-xs sm:text-sm tracking-widest uppercase mb-1">
+              <i class="fa-solid fa-school"></i> YAYASAN PEMBINA LEMBAGA PENDIDIKAN DASAR DAN MENENGAH PGRI
+            </div>
+            <h2 class="text-xl sm:text-3xl font-extrabold text-blue-950 tracking-wide">
+              SMKS PGRI 2 PASURUAN
+            </h2>
+            <p class="text-[11px] sm:text-xs text-slate-600 mt-0.5">
+              Kompetensi Keahlian: Desain Komunikasi Visual (DKV) &amp; Manajemen Perkantoran (MP)
+            </p>
+          </div>
+
+          <!-- Judul Sertifikat -->
+          <div class="text-center mt-5">
+            <h1 class="font-serif text-2xl sm:text-4xl font-extrabold text-amber-700 tracking-wider uppercase">
+              SERTIFIKAT EVALUASI BELAJAR
+            </h1>
+            <p class="text-xs sm:text-sm text-slate-600 mt-1">
+              Diberikan sebagai bentuk apresiasi capaian kompetensi pembelajaran interaktif kepada:
+            </p>
+          </div>
+
+          <!-- Data Penerima Sertifikat -->
+          <div class="my-5 text-center space-y-2">
+            <div id="cert-nama" class="font-serif text-2xl sm:text-4xl font-bold text-blue-950 underline decoration-amber-500 decoration-2 underline-offset-8 px-4">
+              Nama Lengkap Siswa
+            </div>
+            <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-6 pt-2 text-xs sm:text-sm font-bold text-slate-700">
+              <span class="bg-slate-100 px-3 py-1 rounded-lg border border-slate-200">
+                Kelas: <span id="cert-kelas" class="text-blue-900">X DKV 1</span>
+              </span>
+              <span class="bg-slate-100 px-3 py-1 rounded-lg border border-slate-200">
+                Jurusan: <span id="cert-jurusan" class="text-blue-900">Desain Komunikasi Visual (DKV)</span>
+              </span>
+            </div>
+          </div>
+
+          <!-- Detail Materi & Skor -->
+          <div class="max-w-2xl mx-auto bg-blue-50/70 border border-blue-200/80 rounded-2xl p-4 sm:p-5 text-center space-y-3">
+            <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+              Telah menyelesaikan evaluasi permainan edukasi pada mata pelajaran 
+              <strong class="text-blue-950">Dasar-dasar Desain Komunikasi Visual</strong> dengan materi pokok:
+              <br>
+              <span class="font-bold text-blue-900">
+                "Sketsa dan Ilustrasi (Pengertian &amp; Tujuan Menggambar, Fungsi Gambar, Alat &amp; Bahan, Teknik Menggambar, Teknik Kering &amp; Basah, serta Gambar Perspektif)"
+              </span>
+            </p>
+
+            <!-- Kotak Nilai & Predikat -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-1">
+              <div class="bg-white px-5 py-2.5 rounded-xl border-2 border-blue-900 shadow-sm">
+                <div class="text-[10px] font-bold uppercase tracking-wider text-slate-500">Nilai Akhir / Score</div>
+                <div class="text-2xl sm:text-3xl font-extrabold text-blue-950">
+                  <span id="cert-score">100</span> <span class="text-sm font-semibold text-slate-400">/ 100</span>
+                </div>
+              </div>
+
+              <div id="cert-status-box" class="px-5 py-2.5 rounded-xl border-2 shadow-sm text-center">
+                <div class="text-[10px] font-bold uppercase tracking-wider opacity-80">Predikat Kelulusan</div>
+                <div id="cert-predikat" class="text-lg sm:text-2xl font-extrabold tracking-wide">
+                  LULUS ISTIMEWA
+                </div>
+              </div>
+            </div>
+
+            <p id="cert-motivasi" class="text-xs italic text-slate-600 pt-1">
+              "Luar biasa! Pemahamanmu tentang konsep Sketsa dan Ilustrasi sangat sempurna."
+            </p>
+          </div>
+
+          <!-- Kolom Tanda Tangan Kepala Sekolah & Guru Mapel -->
+          <div class="grid grid-cols-2 gap-4 sm:gap-8 mt-7 pt-2 text-center text-xs sm:text-sm">
+            <!-- Kiri: Kepala Sekolah -->
+            <div class="flex flex-col justify-between">
+              <div>
+                <p class="text-slate-600">Mengetahui,</p>
+                <p class="font-bold text-slate-800">Kepala SMKS PGRI 2 Pasuruan</p>
+              </div>
+              <div class="my-6 sm:my-8 flex items-center justify-center">
+                <div class="w-28 border-b border-dashed border-slate-300"></div>
+              </div>
+              <div>
+                <p class="font-extrabold text-blue-950 underline underline-offset-4">Anton Meredhian, S.Pd.</p>
+                <p class="text-[11px] text-slate-500 mt-0.5">Kepala Sekolah</p>
+              </div>
+            </div>
+
+            <!-- Kanan: Guru Mapel Dasar-dasar DKV -->
+            <div class="flex flex-col justify-between">
+              <div>
+                <p id="cert-date" class="text-slate-600">Pasuruan, 16 November 2026</p>
+                <p class="font-bold text-slate-800">Guru Dasar-dasar Desain Komunikasi Visual</p>
+              </div>
+              <div class="my-6 sm:my-8 flex items-center justify-center">
+                <div class="w-28 border-b border-dashed border-slate-300"></div>
+              </div>
+              <div>
+                <p class="font-extrabold text-blue-950 underline underline-offset-4">Anggy Jovano, S.Kom.</p>
+                <p class="text-[11px] text-slate-500 mt-0.5">Guru Mata Pelajaran</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Watermark Pembuat di Sudut Sertifikat -->
+          <div class="mt-5 pt-2 border-t border-slate-200/70 flex items-center justify-between text-[10px] text-slate-400 font-mono">
+            <span>SMKS PGRI 2 Pasuruan &bull; Digital Learning System</span>
+            <span>Game &amp; System by: <strong class="text-slate-600">angjovano</strong></span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================= -->
+  <!-- MODAL KUIS SAAT ULAR MEMAKAN APEL                         -->
+  <!-- ========================================================= -->
+  <div id="quiz-modal" class="hidden fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto no-print">
+    <div class="bg-white w-full max-w-xl rounded-3xl shadow-2xl border border-slate-200 overflow-hidden animate-pop my-auto">
+      
+      <!-- Header Modal Kuis & Timer -->
+      <div class="bg-gradient-to-r from-blue-900 to-indigo-800 p-4 sm:p-5 text-white flex items-center justify-between gap-3">
+        <div>
+          <span id="quiz-topic-badge" class="inline-block px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 font-extrabold text-[11px] uppercase tracking-wide mb-1">
+            Topik Materi
+          </span>
+          <h3 class="text-base sm:text-lg font-extrabold">
+            Soal Evaluasi #<span id="quiz-number">1</span> dari 10
+          </h3>
+        </div>
+
+        <!-- Timer Countdown -->
+        <div id="quiz-timer-box" class="px-3.5 py-2 rounded-2xl bg-white/15 border border-white/25 text-center shrink-0">
+          <div class="text-[10px] uppercase tracking-wider text-blue-200 font-bold">Sisa Waktu</div>
+          <div class="text-xl sm:text-2xl font-extrabold font-mono text-amber-300 leading-none mt-0.5">
+            <span id="quiz-timer">25</span>s
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress Bar Timer -->
+      <div class="w-full h-1.5 bg-slate-200">
+        <div id="quiz-timer-bar" class="h-full bg-amber-500 transition-all duration-200" style="width: 100%;"></div>
+      </div>
+
+      <!-- Pertanyaan & Opsi Jawaban -->
+      <div class="p-5 sm:p-6 space-y-4">
+        <p id="quiz-question" class="text-slate-900 font-bold text-base sm:text-lg leading-snug">
+          Pertanyaan akan muncul di sini...
+        </p>
+
+        <div id="quiz-options" class="space-y-2.5">
+          <!-- Tombol opsi A, B, C, D di-render via JS -->
+        </div>
+
+        <!-- Feedback Pembahasan Setelah Menjawab -->
+        <div id="quiz-feedback" class="hidden rounded-2xl p-4 text-sm border space-y-2">
+          <div id="quiz-feedback-title" class="font-extrabold text-base flex items-center gap-2"></div>
+          <p id="quiz-feedback-desc" class="text-xs sm:text-sm leading-relaxed"></p>
+          <div class="pt-1 flex justify-end">
+            <button onclick="closeQuizAndResume()" class="btn-game px-5 py-2.5 rounded-xl bg-blue-800 hover:bg-blue-900 text-white font-bold text-xs sm:text-sm flex items-center gap-2">
+              <span>Lanjut Bermain</span> <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL KONFIRMASI STOP / KELUAR GAME -->
+  <div id="confirm-modal" class="hidden fixed inset-0 z-50 bg-slate-900/75 backdrop-blur-sm flex items-center justify-center p-4 no-print">
+    <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl border border-slate-200 text-center animate-pop">
+      <div class="w-14 h-14 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center text-2xl mx-auto mb-3">
+        <i class="fa-solid fa-circle-question"></i>
+      </div>
+      <h3 id="confirm-title" class="text-lg font-extrabold text-slate-900">Akhiri Permainan?</h3>
+      <p id="confirm-desc" class="text-xs sm:text-sm text-slate-600 mt-1.5 mb-5">
+        Skor saat ini akan langsung dicetak ke dalam sertifikat kelulusan.
+      </p>
+      <div class="flex gap-2.5">
+        <button onclick="closeConfirmModal()" class="flex-1 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-sm transition">
+          Batal
+        </button>
+        <button id="confirm-yes-btn" class="flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-sm transition">
+          Ya, Lanjutkan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER GLOBAL -->
+  <footer class="w-full py-3 px-4 text-center text-xs text-slate-500 border-t border-slate-200/60 bg-white/60 no-print">
+    &copy; 2026 SMKS PGRI 2 Pasuruan &bull; Mata Pelajaran Dasar-dasar DKV &bull; Dibuat oleh: <strong class="text-slate-700">angjovano</strong>
+  </footer>
+
+  <!-- ========================================================= -->
+  <!-- LOGIKA JAVASCRIPT LENGKAP                                 -->
+  <!-- ========================================================= -->
+  <script>
+    /**
+     * 1. DATA KONFIGURASI WARNA & AKSESORIS ULAR
+     */
+    const SNAKE_COLORS = [
+      { id: 'green', name: 'Hijau Klasik', head: '#15803d', body: '#22c55e', border: '#14532d' },
+      { id: 'blue', name: 'Biru DKV', head: '#1d4ed8', body: '#3b82f6', border: '#1e3a8a' },
+      { id: 'red', name: 'Merah Kreatif', head: '#b91c1c', body: '#ef4444', border: '#7f1d1d' },
+      { id: 'gold', name: 'Kuning Emas', head: '#b45309', body: '#f59e0b', border: '#78350f' },
+      { id: 'purple', name: 'Ungu Estetik', head: '#6d28d9', body: '#8b5cf6', border: '#4c1d95' },
+      { id: 'orange', name: 'Oranye Cerah', head: '#c2410c', body: '#f97316', border: '#7c2d12' }
+    ];
+
+    const SNAKE_ACCESSORIES = [
+      { id: 'none', name: 'Tanpa Aksesoris', icon: 'fa-ban' },
+      { id: 'beret', name: 'Baret Pelukis', icon: 'fa-hat-wizard' },
+      { id: 'glasses', name: 'Kacamata Keren', icon: 'fa-glasses' },
+      { id: 'crown', name: 'Mahkota Emas', icon: 'fa-crown' },
+      { id: 'bowtie', name: 'Dasi Kupu-kupu', icon: 'fa-user-tie' },
+      { id: 'scarf', name: 'Syal Seniman', icon: 'fa-ribbon' }
+    ];
+
+    /**
+     * 2. DATA MATERI PEMBELAJARAN (6 TOPIK SKETSA & ILUSTRASI)
+     */
+    const STUDY_MATERIALS = [
+      {
+        title: '1. Pengertian & Tujuan',
+        subtitle: 'Pengertian dan Tujuan Menggambar (Sketsa & Ilustrasi)',
+        icon: 'fa-pencil',
+        color: 'blue',
+        content: `
+          <div class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="bg-blue-50 border border-blue-200 rounded-2xl p-4">
+                <h4 class="font-extrabold text-blue-900 text-base mb-1.5"><i class="fa-solid fa-pen-ruler mr-1.5"></i>Pengertian Sketsa</h4>
+                <p class="text-sm text-slate-700 leading-relaxed">
+                  <strong>Sketsa</strong> adalah gambar rancangan awal yang bersifat cepat, kasar, dan sementara. Sketsa berfungsi sebagai kerangka dasar sebelum karya seni atau desain disempurnakan menjadi gambar jadi.
+                </p>
+              </div>
+              <div class="bg-indigo-50 border border-indigo-200 rounded-2xl p-4">
+                <h4 class="font-extrabold text-indigo-900 text-base mb-1.5"><i class="fa-solid fa-image mr-1.5"></i>Pengertian Ilustrasi</h4>
+                <p class="text-sm text-slate-700 leading-relaxed">
+                  <strong>Ilustrasi</strong> (dari bahasa Latin <em>Illustrare</em> yang berarti menerangi/menjelaskan) adalah karya visual yang dibuat untuk memperjelas, memperkuat, dan memperindah suatu cerita, teks, pesan, atau informasi.
+                </p>
+              </div>
+            </div>
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+              <h4 class="font-extrabold text-slate-800 text-base mb-2">Tujuan Utama Menggambar dalam DKV:</h4>
+              <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-700">
+                <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-emerald-600 mt-1"></i><span><strong>Menuangkan Ide &amp; Gagasan:</strong> Memvisualisasikan konsep abstrak di pikiran ke media dua dimensi.</span></li>
+                <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-emerald-600 mt-1"></i><span><strong>Komunikasi Visual:</strong> Menyampaikan pesan secara cepat dan universal kepada audiens.</span></li>
+                <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-emerald-600 mt-1"></i><span><strong>Ekspresi &amp; Estetika:</strong> Mengungkapkan perasaan seniman serta memberikan nilai keindahan.</span></li>
+                <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-emerald-600 mt-1"></i><span><strong>Studi Bentuk &amp; Proporsi:</strong> Melatih kepekaan mata dan tangan terhadap anatomi objek.</span></li>
+              </ul>
+            </div>
+          </div>
+        `
+      },
+      {
+        title: '2. Fungsi-fungsi Gambar',
+        subtitle: 'Berbagai Fungsi Gambar dalam Kehidupan & Industri Kreatif',
+        icon: 'fa-shapes',
+        color: 'emerald',
+        content: `
+          <div class="space-y-4">
+            <p class="text-sm text-slate-600">Dalam Desain Komunikasi Visual, gambar memiliki beberapa fungsi strategis sesuai kebutuhan media:</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200">
+                <div class="font-extrabold text-emerald-900 text-sm mb-1"><i class="fa-solid fa-bullhorn mr-1"></i> 1. Fungsi Komunikasi / Informasi</div>
+                <p class="text-xs text-slate-700 leading-relaxed">Menjelaskan alur cerita, petunjuk penggunaan (infografis), rambu-rambu, atau isi berita agar mudah dipahami pembaca.</p>
+              </div>
+              <div class="p-4 rounded-2xl bg-amber-50 border border-amber-200">
+                <div class="font-extrabold text-amber-900 text-sm mb-1"><i class="fa-solid fa-heart mr-1"></i> 2. Fungsi Ekspresi</div>
+                <p class="text-xs text-slate-700 leading-relaxed">Menjadi media curahan emosi, imajinasi, kritik sosial, dan karakter pribadi pembuat gambar (seniman/desainer).</p>
+              </div>
+              <div class="p-4 rounded-2xl bg-purple-50 border border-purple-200">
+                <div class="font-extrabold text-purple-900 text-sm mb-1"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i> 3. Fungsi Dekoratif</div>
+                <p class="text-xs text-slate-700 leading-relaxed">Berfungsi menghias atau mempercantik suatu bidang, kemasan produk, sampul buku, atau ruang agar lebih menarik secara visual.</p>
+              </div>
+              <div class="p-4 rounded-2xl bg-blue-50 border border-blue-200">
+                <div class="font-extrabold text-blue-900 text-sm mb-1"><i class="fa-solid fa-tags mr-1"></i> 4. Fungsi Komersial / Promosi</div>
+                <p class="text-xs text-slate-700 leading-relaxed">Menarik minat konsumen pada poster iklan, brosur, maskot merek (brand mascot), dan desain kemasan.</p>
+              </div>
+              <div class="p-4 rounded-2xl bg-rose-50 border border-rose-200">
+                <div class="font-extrabold text-rose-900 text-sm mb-1"><i class="fa-solid fa-book-open-reader mr-1"></i> 5. Fungsi Edukasi</div>
+                <p class="text-xs text-slate-700 leading-relaxed">Membantu proses belajar mengajar, seperti ilustrasi anatomi tubuh pada buku IPA atau komik edukasi siswa.</p>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        title: '3. Alat & Bahan',
+        subtitle: 'Alat dan Bahan Menggambar Sketsa serta Ilustrasi',
+        icon: 'fa-paintbrush',
+        color: 'amber',
+        content: `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-amber-50/70 border border-amber-200 rounded-2xl p-4 space-y-2">
+              <h4 class="font-extrabold text-amber-900 text-base"><i class="fa-solid fa-toolbox mr-1.5"></i> Alat Menggambar</h4>
+              <ul class="text-xs sm:text-sm text-slate-700 space-y-2">
+                <li><strong>Pensil Grafit:</strong> Dibedakan berdasarkan tingkat kekerasan:
+                  <br><span class="text-xs bg-white px-2 py-0.5 rounded border border-amber-300 inline-block mt-1"><strong>H (Hard):</strong> Keras &amp; tipis (2H, H) untuk sketsa awal.</span>
+                  <span class="text-xs bg-white px-2 py-0.5 rounded border border-amber-300 inline-block mt-1"><strong>HB:</strong> Sedang, seimbang untuk menulis &amp; sketsa.</span>
+                  <span class="text-xs bg-white px-2 py-0.5 rounded border border-amber-300 inline-block mt-1"><strong>B (Black):</strong> Lunak &amp; pekat (2B–8B) untuk arsiran gelap.</span>
+                </li>
+                <li><strong>Drawing Pen &amp; Pena Tinta:</strong> Untuk membuat garis tegas (inking) dengan ketebalan ujung bervariasi (0.1 mm – 0.8 mm).</li>
+                <li><strong>Kuas (Brush):</strong> Kuas lancip (round) untuk detail dan kuas pipih (flat) untuk sapuan bidang luas.</li>
+                <li><strong>Penghapus (Eraser) &amp; Palet:</strong> Penghapus karet/uleni (kneaded eraser) dan palet untuk mencampur cat.</li>
+              </ul>
+            </div>
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-2">
+              <h4 class="font-extrabold text-slate-900 text-base"><i class="fa-solid fa-scroll mr-1.5"></i> Bahan (Media &amp; Pewarna)</h4>
+              <ul class="text-xs sm:text-sm text-slate-700 space-y-2">
+                <li><strong>Kertas Gambar / Sketchbook:</strong> Kertas HVS, kertas Padalarang, kertas Manila, hingga kertas <em>Watercolor</em> (gramatur tebal &ge; 200 gsm agar tidak mudah robek saat terkena air).</li>
+                <li><strong>Bahan Pewarna Kering:</strong> Pensil warna, krayon (oil pastel), kapur pastel (soft pastel), spidol, dan arang (charcoal).</li>
+                <li><strong>Bahan Pewarna Basah:</strong> Cat air (transparan), cat poster/gouache (pekat/opaque), cat akrilik, dan tinta bak (tinta Cina).</li>
+              </ul>
+            </div>
+          </div>
+        `
+      },
+      {
+        title: '4. Teknik Menggambar',
+        subtitle: 'Macam-macam Teknik Menggambar Sketsa & Ilustrasi',
+        icon: 'fa-pen-nib',
+        color: 'purple',
+        content: `
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            <div class="p-3.5 rounded-2xl bg-purple-50 border border-purple-200">
+              <h5 class="font-extrabold text-purple-950 text-sm">1. Teknik Arsir (Hatching)</h5>
+              <p class="text-xs text-slate-700 mt-1">Menorehkan garis-garis sejajar atau menyilang (<em>cross-hatching</em>) secara berulang untuk menciptakan kesan gelap-terang dan volume objek.</p>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-blue-50 border border-blue-200">
+              <h5 class="font-extrabold text-blue-950 text-sm">2. Teknik Dusel (Gosok)</h5>
+              <p class="text-xs text-slate-700 mt-1">Menggosok goresan pensil/arang menggunakan jari, kapas, atau <em>paper stump</em> sehingga menghasilkan gradasi halus tanpa terlihat garisnya.</p>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-rose-50 border border-rose-200">
+              <h5 class="font-extrabold text-rose-950 text-sm">3. Teknik Pointilis</h5>
+              <p class="text-xs text-slate-700 mt-1">Membentuk objek dan bayangan menggunakan kumpulan titik-titik. Semakin rapat titiknya, semakin gelap kesan warnanya.</p>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-slate-100 border border-slate-300">
+              <h5 class="font-extrabold text-slate-900 text-sm">4. Teknik Blok (Siluet)</h5>
+              <p class="text-xs text-slate-700 mt-1">Menutup seluruh bentuk objek dengan satu warna pekat (biasanya hitam) sehingga hanya menampilkan bentuk luarnya saja.</p>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-amber-50 border border-amber-200">
+              <h5 class="font-extrabold text-amber-950 text-sm">5. Teknik Linear</h5>
+              <p class="text-xs text-slate-700 mt-1">Menggambar objek dengan mengandalkan unsur garis lurus maupun garis lengkung sebagai pembentuk utama karakter gambar.</p>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-cyan-50 border border-cyan-200">
+              <h5 class="font-extrabold text-cyan-950 text-sm">6. Teknik Aquarel &amp; Plakat</h5>
+              <p class="text-xs text-slate-700 mt-1"><strong>Aquarel:</strong> Sapuan cat air tipis &amp; transparan. <strong>Plakat:</strong> Sapuan cat kental (cat poster/akrilik) yang menutup bidang secara pekat.</p>
+            </div>
+          </div>
+        `
+      },
+      {
+        title: '5. Teknik Kering & Basah',
+        subtitle: 'Perbedaan Teknik Kering dan Teknik Basah',
+        icon: 'fa-droplet',
+        color: 'cyan',
+        content: `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div class="rounded-2xl border-2 border-amber-300 bg-amber-50/50 p-5 space-y-2.5">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-200 text-amber-950 font-extrabold text-xs">
+                <i class="fa-solid fa-sun"></i> TEKNIK KERING (DRY MEDIA)
+              </div>
+              <p class="text-sm text-slate-700 leading-relaxed">
+                Teknik menggambar atau mewarnai yang <strong>tidak memerlukan bahan pengencer</strong> (seperti air atau minyak). Media langsung digoreskan ke permukaan kertas.
+              </p>
+              <div class="bg-white rounded-xl p-3 border border-amber-200 text-xs space-y-1">
+                <div class="font-bold text-slate-800">Contoh Alat &amp; Bahan Teknik Kering:</div>
+                <p class="text-slate-600">Pensil grafit, pensil warna, krayon (oil pastel), kapur pastel, arang (charcoal), dan spidol.</p>
+                <div class="font-bold text-slate-800 pt-1">Kelebihan:</div>
+                <p class="text-slate-600">Praktis, cepat kering, mudah dikontrol untuk detail garis, dan tidak membuat kertas bergelombang.</p>
+              </div>
+            </div>
+
+            <div class="rounded-2xl border-2 border-cyan-300 bg-cyan-50/50 p-5 space-y-2.5">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-200 text-cyan-950 font-extrabold text-xs">
+                <i class="fa-solid fa-water"></i> TEKNIK BASAH (WET MEDIA)
+              </div>
+              <p class="text-sm text-slate-700 leading-relaxed">
+                Teknik menggambar atau melukis yang <strong>memerlukan bahan pengencer</strong> (air, minyak cat, atau medium khusus) sebelum diaplikasikan menggunakan kuas.
+              </p>
+              <div class="bg-white rounded-xl p-3 border border-cyan-200 text-xs space-y-1">
+                <div class="font-bold text-slate-800">Contoh Alat &amp; Bahan Teknik Basah:</div>
+                <p class="text-slate-600">Cat air (watercolor), cat poster, cat akrilik, cat minyak (pengencer linseed oil/terpentin), dan tinta bak.</p>
+                <div class="font-bold text-slate-800 pt-1">Kelebihan:</div>
+                <p class="text-slate-600">Menghasilkan percampuran gradasi warna yang kaya, sapuan luas yang cepat, serta efek transparan maupun pekat.</p>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        title: '6. Gambar Perspektif',
+        subtitle: 'Konsep dan Jenis-jenis Gambar Perspektif',
+        icon: 'fa-cube',
+        color: 'indigo',
+        content: `
+          <div class="space-y-4">
+            <div class="bg-indigo-50 border border-indigo-200 rounded-2xl p-4">
+              <p class="text-sm text-slate-700 leading-relaxed">
+                <strong>Gambar Perspektif</strong> adalah teknik menggambar objek tiga dimensi ke atas bidang dua dimensi sesuai dengan <strong>sudut pandang mata manusia</strong>. Prinsip utamanya: <em>benda yang letaknya semakin jauh dari mata akan tampak semakin kecil hingga menghilang di satu titik</em>.
+              </p>
+              <div class="flex flex-wrap gap-2 mt-2.5 text-xs">
+                <span class="px-2.5 py-1 rounded-lg bg-white border border-indigo-200 font-bold text-indigo-900">Garis Horizon: Garis khayal setinggi mata pengamat.</span>
+                <span class="px-2.5 py-1 rounded-lg bg-white border border-indigo-200 font-bold text-indigo-900">Titik Hilang (Vanishing Point): Titik pertemuan semua garis proyeksi pada garis horizon.</span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm">
+                <div class="text-xs font-extrabold text-blue-700 uppercase">1. Perspektif 1 Titik Hilang</div>
+                <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                  Digunakan saat bidang depan objek sejajar dengan mata pengamat (tampak depan). Contoh: menggambar lorong kelas, rel kereta api lurus, atau interior ruangan dari depan.
+                </p>
+              </div>
+              <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm">
+                <div class="text-xs font-extrabold text-indigo-700 uppercase">2. Perspektif 2 Titik Hilang</div>
+                <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                  Digunakan saat kita melihat sudut/pojok suatu objek (tidak sejajar mata), sehingga garis mengarah ke dua titik hilang di kiri dan kanan garis horizon. Contoh: menggambar sudut gedung sekolah.
+                </p>
+              </div>
+              <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm">
+                <div class="text-xs font-extrabold text-purple-700 uppercase">3. Perspektif 3 Titik Hilang</div>
+                <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                  Digunakan untuk sudut pandang ekstrem dari sangat atas (<em>mata burung</em>) atau sangat bawah (<em>mata cacing/katak</em>), seperti menggambar gedung pencakar langit tinggi.
+                </p>
+              </div>
+            </div>
+          </div>
+        `
+      }
+    ];
+
+    /**
+     * 3. BANK SOAL KUIS (24 SOAL BERKUALITAS DARI 6 TOPIK MATERI)
+     */
+    const QUESTION_BANK = [
+      // Topik 1: Pengertian & Tujuan Menggambar
+      {
+        topic: 'Pengertian & Tujuan Menggambar',
+        q: 'Gambar rancangan awal yang dibuat secara cepat, kasar, dan bersifat sementara sebelum menjadi karya desain utuh disebut...',
+        options: ['Sketsa', 'Tipografi', 'Fotografi', 'Kaligrafi'],
+        answer: 0,
+        explanation: 'Sketsa adalah gambar rancangan awal yang berfungsi sebagai kerangka dasar sebelum disempurnakan.'
+      },
+      {
+        topic: 'Pengertian & Tujuan Menggambar',
+        q: 'Kata "Ilustrasi" berasal dari bahasa Latin "Illustrare" yang memiliki arti...',
+        options: ['Menghapus atau menyamarkan', 'Menerangi atau menjelaskan', 'Mengukur atau memotong', 'Mewarnai dengan air'],
+        answer: 1,
+        explanation: 'Illustrare berarti menerangi atau menjelaskan, yakni karya visual untuk memperjelas pesan atau cerita.'
+      },
+      {
+        topic: 'Pengertian & Tujuan Menggambar',
+        q: 'Manakah yang merupakan tujuan utama membuat sketsa dalam proses perancangan Desain Komunikasi Visual?',
+        options: ['Menghemat biaya cetak brosur', 'Menuangkan ide dan gagasan visual secara cepat sebelum dieksekusi', 'Menggantikan fungsi kamera digital', 'Menghindari penggunaan warna'],
+        answer: 1,
+        explanation: 'Sketsa membantu desainer menuangkan ide abstrak di pikiran ke media gambar dengan cepat.'
+      },
+      {
+        topic: 'Pengertian & Tujuan Menggambar',
+        q: 'Perbedaan mendasar antara sketsa dan ilustrasi jadi terletak pada...',
+        options: ['Sketsa selalu memakai cat air, ilustrasi memakai pensil', 'Sketsa masih berupa kerangka rancangan awal, sedangkan ilustrasi sudah selesai dan komunikatif', 'Sketsa hanya dibuat di komputer', 'Ilustrasi tidak boleh memiliki garis'],
+        answer: 1,
+        explanation: 'Sketsa bersifat rancangan kasar/awal, sedangkan ilustrasi adalah karya selesai yang siap menyampaikan pesan.'
+      },
+
+      // Topik 2: Fungsi-fungsi Gambar
+      {
+        topic: 'Fungsi-fungsi Gambar',
+        q: 'Gambar ilustrasi yang terdapat pada buku pelajaran IPA untuk menjelaskan struktur organ tubuh manusia memiliki fungsi...',
+        options: ['Fungsi Dekoratif', 'Fungsi Edukasi', 'Fungsi Komersial', 'Fungsi Magis'],
+        answer: 1,
+        explanation: 'Fungsi edukasi bertujuan membantu peserta didik memahami materi pembelajaran secara visual.'
+      },
+      {
+        topic: 'Fungsi-fungsi Gambar',
+        q: 'Sebuah merek minuman membuat karakter maskot lucu pada kemasan botol agar menarik minat pembeli. Hal ini mencerminkan gambar sebagai...',
+        options: ['Fungsi Komersial / Promosi', 'Fungsi Kritik Sosial', 'Fungsi Arsitektural', 'Fungsi Anatomi'],
+        answer: 0,
+        explanation: 'Fungsi komersial/promosi digunakan untuk menarik minat konsumen dan meningkatkan daya jual produk.'
+      },
+      {
+        topic: 'Fungsi-fungsi Gambar',
+        q: 'Ornamen motif batik atau hiasan flora pada sampul buku catatan yang bertujuan memperindah tampilan termasuk dalam fungsi...',
+        options: ['Fungsi Dekoratif', 'Fungsi Jurnalistik', 'Fungsi Kartografi', 'Fungsi Konstruksi'],
+        answer: 0,
+        explanation: 'Fungsi dekoratif bertujuan menghias dan mempercantik permukaan suatu bidang atau produk.'
+      },
+      {
+        topic: 'Fungsi-fungsi Gambar',
+        q: 'Infografis tentang cara mencuci tangan yang benar di dinding sekolah mengutamakan fungsi gambar sebagai...',
+        options: ['Fungsi Informasi / Komunikasi', 'Fungsi Abstrak', 'Fungsi Dekoratif', 'Fungsi Komersial'],
+        answer: 0,
+        explanation: 'Infografis menyampaikan informasi atau petunjuk langkah demi langkah agar mudah dipahami masyarakat.'
+      },
+
+      // Topik 3: Alat & Bahan Menggambar
+      {
+        topic: 'Alat & Bahan Menggambar',
+        q: 'Kode huruf "B" pada pensil grafit (seperti 2B, 4B, 6B) merupakan singkatan dari "Black" yang menunjukkan sifat pensil...',
+        options: ['Sangat keras dan goresannya tipis', 'Lunak dan menghasilkan goresan hitam pekat', 'Anti air dan permanen', 'Berwarna biru cerah'],
+        answer: 1,
+        explanation: 'Pensil berkode B memiliki kandungan grafit lebih banyak sehingga lunak dan menghasilkan arsiran gelap/pekat.'
+      },
+      {
+        topic: 'Alat & Bahan Menggambar',
+        q: 'Jenis pensil yang memiliki tingkat kekerasan tinggi dan menghasilkan garis tipis sehingga cocok untuk sketsa awal adalah...',
+        options: ['Pensil 6B', 'Pensil 8B', 'Pensil H / 2H', 'Krayon minyak'],
+        answer: 2,
+        explanation: 'Kode H (Hard) menandakan pensil keras dengan goresan tipis yang mudah dihapus saat membuat sketsa awal.'
+      },
+      {
+        topic: 'Alat & Bahan Menggambar',
+        q: 'Untuk menggambar menggunakan cat air (watercolor) agar kertas tidak mudah sobek atau bergelombang, sebaiknya menggunakan kertas dengan...',
+        options: ['Gramatur tipis di bawah 60 gsm', 'Kertas koran bekas', 'Gramatur tebal (minimal 200 gsm)', 'Kertas karbon'],
+        answer: 2,
+        explanation: 'Kertas watercolor memiliki gramatur tebal (200–300 gsm) sehingga mampu menyerap air dengan baik.'
+      },
+      {
+        topic: 'Alat & Bahan Menggambar',
+        q: 'Alat gambar yang memiliki ujung pena berukuran presisi (seperti 0.1 mm, 0.3 mm, 0.5 mm) untuk menebalkan garis sketsa (inking) adalah...',
+        options: ['Drawing Pen', 'Kuas Flat', 'Palet', 'Spidol Whiteboard'],
+        answer: 0,
+        explanation: 'Drawing pen digunakan untuk proses inking dengan ketebalan garis yang konsisten dan presisi.'
+      },
+
+      // Topik 4: Teknik Menggambar
+      {
+        topic: 'Teknik Menggambar',
+        q: 'Teknik menggambar dengan cara menggoreskan garis-garis sejajar atau menyilang secara berulang untuk membentuk kesan gelap-terang disebut teknik...',
+        options: ['Pointilis', 'Arsir (Hatching)', 'Blok (Siluet)', 'Aquarel'],
+        answer: 1,
+        explanation: 'Teknik arsir (hatching/cross-hatching) mengandalkan kerapatan garis untuk membentuk bayangan dan volume.'
+      },
+      {
+        topic: 'Teknik Menggambar',
+        q: 'Teknik menggambar yang membentuk objek dan bayangan menggunakan kumpulan titik-titik yang diatur kerapatannya disebut...',
+        options: ['Teknik Linear', 'Teknik Dusel', 'Teknik Pointilis', 'Teknik Plakat'],
+        answer: 2,
+        explanation: 'Pointilis membentuk gelap-terang melalui kerapatan titik-titik.'
+      },
+      {
+        topic: 'Teknik Menggambar',
+        q: 'Menggosok goresan pensil atau arang menggunakan jari, kapas, atau paper stump untuk menghasilkan gradasi yang halus disebut teknik...',
+        options: ['Teknik Dusel (Gosok)', 'Teknik Blok', 'Teknik Kolase', 'Teknik Mozaik'],
+        answer: 0,
+        explanation: 'Teknik dusel menghaluskan goresan pensil dengan cara digosok sehingga gradasi terlihat lembut.'
+      },
+      {
+        topic: 'Teknik Menggambar',
+        q: 'Gambar yang menutup keseluruhan objek dengan satu warna pekat (biasanya hitam) sehingga hanya tampak bentuk luarnya disebut teknik...',
+        options: ['Teknik Aquarel', 'Teknik Blok (Siluet)', 'Teknik Pointilis', 'Teknik Dusel'],
+        answer: 1,
+        explanation: 'Teknik blok atau siluet menampilkan wujud global objek dengan satu warna solid.'
+      },
+
+      // Topik 5: Teknik Kering & Teknik Basah
+      {
+        topic: 'Teknik Kering & Teknik Basah',
+        q: 'Perbedaan utama antara teknik kering dan teknik basah dalam menggambar adalah...',
+        options: ['Teknik kering hanya boleh di atas kanvas', 'Teknik basah memerlukan bahan pengencer (air/minyak), sedangkan teknik kering tidak', 'Teknik kering selalu berwarna hitam putih', 'Teknik basah tidak membutuhkan kuas'],
+        answer: 1,
+        explanation: 'Teknik basah membutuhkan zat pengencer seperti air atau minyak, sedangkan teknik kering langsung digoreskan.'
+      },
+      {
+        topic: 'Teknik Kering & Teknik Basah',
+        q: 'Manakah kelompok media di bawah ini yang seluruhnya termasuk dalam bahan TEKNIK KERING?',
+        options: ['Cat air, tinta bak, dan cat minyak', 'Pensil grafit, krayon (oil pastel), dan arang (charcoal)', 'Cat poster, cat akrilik, dan pensil warna', 'Cat air, spidol, dan cat tembok'],
+        answer: 1,
+        explanation: 'Pensil grafit, krayon, dan arang diaplikasikan langsung tanpa bahan pengencer.'
+      },
+      {
+        topic: 'Teknik Kering & Teknik Basah',
+        q: 'Teknik melukis menggunakan cat air dengan sapuan warna yang tipis dan transparan sehingga warna kertas masih terlihat disebut...',
+        options: ['Teknik Aquarel', 'Teknik Dusel', 'Teknik Pointilis', 'Teknik Arsir'],
+        answer: 0,
+        explanation: 'Teknik aquarel memanfaatkan sifat transparan cat air dengan sapuan tipis.'
+      },
+      {
+        topic: 'Teknik Kering & Teknik Basah',
+        q: 'Jika seorang ilustrator menggunakan cat poster atau cat akrilik dengan sapuan kental yang menutup bidang gambar secara pekat, ia menerapkan...',
+        options: ['Teknik Plakat', 'Teknik Sketsa', 'Teknik Linear', 'Teknik Dusel'],
+        answer: 0,
+        explanation: 'Teknik plakat menggunakan sapuan cat kental (opaque) yang menutup latar belakang secara pekat.'
+      },
+
+      // Topik 6: Gambar Perspektif
+      {
+        topic: 'Gambar Perspektif',
+        q: 'Prinsip utama dalam menggambar perspektif sesuai penglihatan mata manusia adalah...',
+        options: ['Benda yang jauh tampak lebih besar daripada benda yang dekat', 'Benda yang letaknya semakin jauh tampak semakin kecil hingga bertemu di titik hilang', 'Semua garis sejajar harus digambar tegak lurus', 'Warna benda jauh selalu lebih terang'],
+        answer: 1,
+        explanation: 'Dalam hukum perspektif, semakin jauh jarak objek dari mata, ukurannya tampak semakin mengecil menuju titik hilang.'
+      },
+      {
+        topic: 'Gambar Perspektif',
+        q: 'Garis khayal mendatar yang selalu berada setinggi kedudukan mata pengamat dalam gambar perspektif disebut...',
+        options: ['Garis Vertikal', 'Garis Horizon (Cakrawala)', 'Garis Kontur', 'Garis Sumbu'],
+        answer: 1,
+        explanation: 'Garis horizon menunjukkan ketinggian sudut pandang mata pengamat dan menjadi tempat letak titik hilang.'
+      },
+      {
+        topic: 'Gambar Perspektif',
+        q: 'Ketika menggambar lorong koridor sekolah atau rel kereta api lurus tepat dari arah depan, jenis perspektif yang paling tepat digunakan adalah...',
+        options: ['Perspektif 1 Titik Hilang', 'Perspektif 2 Titik Hilang', 'Perspektif 3 Titik Hilang', 'Perspektif Isometrik'],
+        answer: 0,
+        explanation: 'Objek yang bidang depannya sejajar dengan pandangan mata digambar dengan perspektif 1 titik hilang.'
+      },
+      {
+        topic: 'Gambar Perspektif',
+        q: 'Untuk menggambar gedung pencakar langit yang sangat tinggi dari sudut pandang bawah (mata katak) atau dari atas (mata burung), digunakan...',
+        options: ['Perspektif 1 Titik Hilang', 'Perspektif 2 Titik Hilang', 'Perspektif 3 Titik Hilang', 'Gambar Siluet'],
+        answer: 2,
+        explanation: 'Perspektif 3 titik hilang digunakan untuk sudut pandang ekstrem dari sangat atas atau sangat bawah.'
+      }
+    ];
+
+    /**
+     * 4. STATE GLOBAL APLIKASI & GAME
+     */
+    const state = {
+      student: {
+        name: '',
+        kelas: '',
+        jurusan: 'DKV'
+      },
+      customization: {
+        colorIndex: 0,
+        accessoryIndex: 0
+      },
+      soundEnabled: true,
+      studyTopicIndex: 0,
+      game: {
+        isRunning: false,
+        isPaused: false,
+        isQuizOpen: false,
+        gridSize: 18, // 18x18 petak agar nyaman di HP maupun Desktop
+        snake: [],
+        dir: { x: 1, y: 0 },
+        nextDir: { x: 1, y: 0 },
+        apple: { x: 10, y: 10 },
+        level: 1,
+        score: 0,
+        lives: 3,
+        answeredCount: 0,
+        totalQuestions: 10,
+        questionPool: [],
+        currentQuestion: null,
+        quizTimeLeft: 25,
+        quizMaxTime: 25,
+        quizTimerInterval: null,
+        quizAnswered: false,
+        gameLoopTimeout: null,
+        lastTickTime: 0
+      }
+    };
+
+    /**
+     * 5. WEB AUDIO API (EFEK SUARA SINTETIS TANPA FILE EKSTERNAL)
+     */
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    let audioCtx = null;
+
+    function playTone(freq, type = 'sine', duration = 0.12, delay = 0) {
+      if (!state.soundEnabled) return;
+      try {
+        if (!audioCtx) audioCtx = new AudioCtx();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime + delay);
+
+        gain.gain.setValueAtTime(0.14, audioCtx.currentTime + delay);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + delay + duration);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(audioCtx.currentTime + delay);
+        osc.stop(audioCtx.currentTime + delay + duration);
+      } catch (e) {
+        // Abaikan jika browser memblokir audio sebelum interaksi
+      }
+    }
+
+    const sfx = {
+      eat: () => {
+        playTone(523.25, 'triangle', 0.1, 0);
+        playTone(783.99, 'triangle', 0.14, 0.07);
+      },
+      correct: () => {
+        playTone(523.25, 'sine', 0.12, 0);
+        playTone(659.25, 'sine', 0.12, 0.1);
+        playTone(1046.5, 'sine', 0.25, 0.2);
+      },
+      wrong: () => {
+        playTone(240, 'sawtooth', 0.18, 0);
+        playTone(180, 'sawtooth', 0.25, 0.15);
+      },
+      crash: () => {
+        playTone(160, 'square', 0.2, 0);
+        playTone(110, 'square', 0.25, 0.12);
+      },
+      levelUp: () => {
+        playTone(440, 'triangle', 0.1, 0);
+        playTone(554.37, 'triangle', 0.1, 0.1);
+        playTone(659.25, 'triangle', 0.1, 0.2);
+        playTone(880, 'triangle', 0.3, 0.3);
+      },
+      finish: () => {
+        playTone(523.25, 'triangle', 0.12, 0);
+        playTone(659.25, 'triangle', 0.12, 0.12);
+        playTone(783.99, 'triangle', 0.12, 0.24);
+        playTone(1046.5, 'triangle', 0.35, 0.36);
+      }
+    };
+
+    function toggleSound() {
+      state.soundEnabled = !state.soundEnabled;
+      const icon = document.getElementById('sound-icon');
+      const label = document.getElementById('sound-label');
+      if (state.soundEnabled) {
+        icon.className = 'fa-solid fa-volume-high text-blue-700';
+        label.textContent = 'Suara Aktif';
+        playTone(600, 'sine', 0.08);
+      } else {
+        icon.className = 'fa-solid fa-volume-xmark text-slate-400';
+        label.textContent = 'Suara Mati';
+      }
+    }
+
+    /**
+     * 6. SISTEM NOTIFIKASI TOAST (PENGGANTI ALERT)
+     */
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      const styles = {
+        error: 'bg-rose-600 text-white border-rose-700',
+        success: 'bg-emerald-600 text-white border-emerald-700',
+        warning: 'bg-amber-500 text-slate-950 border-amber-600',
+        info: 'bg-slate-800 text-white border-slate-900'
+      };
+      const icons = {
+        error: 'fa-circle-exclamation',
+        success: 'fa-circle-check',
+        warning: 'fa-triangle-exclamation',
+        info: 'fa-circle-info'
+      };
+
+      toast.className = `px-4 py-3 rounded-2xl shadow-lg border font-bold text-xs sm:text-sm flex items-center gap-2.5 animate-pop ${styles[type] || styles.info}`;
+      toast.innerHTML = `<i class="fa-solid ${icons[type] || icons.info} text-base"></i><span>${message}</span>`;
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(-8px)';
+        toast.style.transition = 'all 0.25s ease';
+        setTimeout(() => toast.remove(), 260);
+      }, 2800);
+    }
+
+    /**
+     * 7. INISIALISASI KUSTOMISASI ULAR & LIVE PREVIEW
+     */
+    function initCustomizationUI() {
+      const colorContainer = document.getElementById('color-options');
+      colorContainer.innerHTML = SNAKE_COLORS.map((c, idx) => `
+        <button type="button" onclick="selectSnakeColor(${idx})" id="color-btn-${idx}"
+          class="p-2 rounded-xl border-2 flex flex-col items-center gap-1 transition ${idx === state.customization.colorIndex ? 'border-blue-700 bg-blue-50 shadow-sm' : 'border-slate-200 bg-white hover:bg-slate-50'}">
+          <span class="w-6 h-6 rounded-full shadow-inner border border-black/20" style="background-color: ${c.body};"></span>
+          <span class="text-[10px] font-bold text-slate-700 leading-tight text-center">${c.name.split(' ')[0]}</span>
+        </button>
+      `).join('');
+
+      const accContainer = document.getElementById('accessory-options');
+      accContainer.innerHTML = SNAKE_ACCESSORIES.map((a, idx) => `
+        <button type="button" onclick="selectSnakeAccessory(${idx})" id="acc-btn-${idx}"
+          class="px-3 py-2 rounded-xl border-2 flex items-center gap-2 text-left transition ${idx === state.customization.accessoryIndex ? 'border-amber-500 bg-amber-50 text-amber-950 shadow-sm' : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-700'}">
+          <i class="fa-solid ${a.icon} text-xs ${idx === state.customization.accessoryIndex ? 'text-amber-600' : 'text-slate-400'}"></i>
+          <span class="text-xs font-bold truncate">${a.name}</span>
+        </button>
+      `).join('');
+
+      renderSnakePreview();
+    }
+
+    function selectSnakeColor(idx) {
+      state.customization.colorIndex = idx;
+      SNAKE_COLORS.forEach((_, i) => {
+        const btn = document.getElementById(`color-btn-${i}`);
+        btn.className = i === idx
+          ? 'p-2 rounded-xl border-2 border-blue-700 bg-blue-50 shadow-sm flex flex-col items-center gap-1 transition'
+          : 'p-2 rounded-xl border-2 border-slate-200 bg-white hover:bg-slate-50 flex flex-col items-center gap-1 transition';
+      });
+      renderSnakePreview();
+    }
+
+    function selectSnakeAccessory(idx) {
+      state.customization.accessoryIndex = idx;
+      SNAKE_ACCESSORIES.forEach((_, i) => {
+        const btn = document.getElementById(`acc-btn-${i}`);
+        const icon = btn.querySelector('i');
+        if (i === idx) {
+          btn.className = 'px-3 py-2 rounded-xl border-2 border-amber-500 bg-amber-50 text-amber-950 shadow-sm flex items-center gap-2 text-left transition';
+          icon.className = `fa-solid ${SNAKE_ACCESSORIES[i].icon} text-xs text-amber-600`;
+        } else {
+          btn.className = 'px-3 py-2 rounded-xl border-2 border-slate-200 bg-white hover:bg-slate-50 text-slate-700 flex items-center gap-2 text-left transition';
+          icon.className = `fa-solid ${SNAKE_ACCESSORIES[i].icon} text-xs text-slate-400`;
+        }
+      });
+      renderSnakePreview();
+    }
+
+    /**
+     * MENGGAMBAR KEPALA ULAR & AKSESORISNYA (DIGUNAKAN DI PREVIEW & GAME)
+     */
+    function drawSnakeHeadWithAccessory(ctx, cx, cy, radius, dir, colorObj, accId) {
+      // Gambar lingkaran kepala ular
+      ctx.save();
+      ctx.fillStyle = colorObj.head;
+      ctx.strokeStyle = colorObj.border;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+
+      // Hitung posisi mata sesuai arah gerak
+      let eye1 = { x: cx + radius * 0.35, y: cy - radius * 0.38 };
+      let eye2 = { x: cx + radius * 0.35, y: cy + radius * 0.38 };
+      if (dir.x === -1) {
+        eye1 = { x: cx - radius * 0.35, y: cy - radius * 0.38 };
+        eye2 = { x: cx - radius * 0.35, y: cy + radius * 0.38 };
+      } else if (dir.y === -1) {
+        eye1 = { x: cx - radius * 0.38, y: cy - radius * 0.35 };
+        eye2 = { x: cx + radius * 0.38, y: cy - radius * 0.35 };
+      } else if (dir.y === 1) {
+        eye1 = { x: cx - radius * 0.38, y: cy + radius * 0.35 };
+        eye2 = { x: cx + radius * 0.38, y: cy + radius * 0.35 };
+      }
+
+      // Putih mata & pupil
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.arc(eye1.x, eye1.y, radius * 0.26, 0, Math.PI * 2);
+      ctx.arc(eye2.x, eye2.y, radius * 0.26, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = '#0f172a';
+      ctx.beginPath();
+      ctx.arc(eye1.x + dir.x * 1.2, eye1.y + dir.y * 1.2, radius * 0.13, 0, Math.PI * 2);
+      ctx.arc(eye2.x + dir.x * 1.2, eye2.y + dir.y * 1.2, radius * 0.13, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Aksesoris Karakter Ular
+      if (accId === 'glasses') {
+        // Kacamata Keren
+        ctx.fillStyle = '#0f172a';
+        ctx.strokeStyle = '#fbbf24';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.arc(eye1.x, eye1.y, radius * 0.34, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(eye2.x, eye2.y, radius * 0.34, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        // Jembatan kacamata
+        ctx.beginPath();
+        ctx.moveTo(eye1.x, eye1.y);
+        ctx.lineTo(eye2.x, eye2.y);
+        ctx.stroke();
+      } else if (accId === 'beret') {
+        // Topi Baret Pelukis di atas kepala
+        ctx.fillStyle = '#e11d48';
+        ctx.strokeStyle = '#881337';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.ellipse(cx - 2, cy - radius * 0.85, radius * 0.95, radius * 0.45, -0.2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        // Tangkai kecil atas baret
+        ctx.beginPath();
+        ctx.moveTo(cx - 2, cy - radius * 1.25);
+        ctx.lineTo(cx + 2, cy - radius * 1.45);
+        ctx.stroke();
+      } else if (accId === 'crown') {
+        // Mahkota Emas
+        ctx.fillStyle = '#facc15';
+        ctx.strokeStyle = '#a16207';
+        ctx.lineWidth = 1.3;
+        const topY = cy - radius * 0.85;
+        ctx.beginPath();
+        ctx.moveTo(cx - radius * 0.65, topY);
+        ctx.lineTo(cx - radius * 0.65, topY - radius * 0.6);
+        ctx.lineTo(cx - radius * 0.25, topY - radius * 0.25);
+        ctx.lineTo(cx, topY - radius * 0.72);
+        ctx.lineTo(cx + radius * 0.25, topY - radius * 0.25);
+        ctx.lineTo(cx + radius * 0.65, topY - radius * 0.6);
+        ctx.lineTo(cx + radius * 0.65, topY);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+      } else if (accId === 'bowtie') {
+        // Dasi Kupu-kupu di bawah dagu/leher
+        const by = cy + radius * 0.85;
+        ctx.fillStyle = '#ef4444';
+        ctx.strokeStyle = '#7f1d1d';
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        ctx.moveTo(cx, by);
+        ctx.lineTo(cx - radius * 0.6, by - radius * 0.35);
+        ctx.lineTo(cx - radius * 0.6, by + radius * 0.35);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(cx, by);
+        ctx.lineTo(cx + radius * 0.6, by - radius * 0.35);
+        ctx.lineTo(cx + radius * 0.6, by + radius * 0.35);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = '#fbbf24';
+        ctx.beginPath();
+        ctx.arc(cx, by, radius * 0.18, 0, Math.PI * 2);
+        ctx.fill();
+      } else if (accId === 'scarf') {
+        // Syal Seniman di bagian leher
+        const sy = cy + radius * 0.72;
+        ctx.fillStyle = '#f97316';
+        ctx.strokeStyle = '#9a3412';
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        ctx.roundRect(cx - radius * 0.8, sy - 3, radius * 1.6, 7, 3);
+        ctx.fill();
+        ctx.stroke();
+        // Ujung syal berkibar
+        ctx.beginPath();
+        ctx.moveTo(cx - radius * 0.4, sy + 3);
+        ctx.lineTo(cx - radius * 0.85, sy + radius * 0.75);
+        ctx.lineTo(cx - radius * 0.35, sy + radius * 0.75);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+      }
+
+      ctx.restore();
+    }
+
+    function renderSnakePreview() {
+      const canvas = document.getElementById('preview-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const colorObj = SNAKE_COLORS[state.customization.colorIndex];
+      const accObj = SNAKE_ACCESSORIES[state.customization.accessoryIndex];
+      document.getElementById('preview-badge-name').textContent = `${colorObj.name} • ${accObj.name}`;
+
+      // Gambar garis grid dekoratif di preview
+      ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+      ctx.lineWidth = 1;
+      for (let x = 0; x < canvas.width; x += 20) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
+      }
+
+      // Gambar badan ular (5 segmen melengkung)
+      const segments = [
+        { x: 75, y: 65 },
+        { x: 102, y: 58 },
+        { x: 130, y: 54 },
+        { x: 158, y: 58 },
+        { x: 186, y: 60 }
+      ];
+
+      segments.forEach((seg, i) => {
+        const r = 13 + i * 0.6;
+        ctx.fillStyle = colorObj.body;
+        ctx.strokeStyle = colorObj.border;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(seg.x, seg.y, r, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+      });
+
+      // Gambar kepala ular + aksesoris
+      drawSnakeHeadWithAccessory(ctx, 218, 58, 17, { x: 1, y: 0 }, colorObj, accObj.id);
+
+      // Gambar apel target di depan ular
+      const ax = 272, ay = 58;
+      ctx.fillStyle = '#ef4444';
+      ctx.beginPath();
+      ctx.arc(ax, ay, 11, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#22c55e';
+      ctx.beginPath();
+      ctx.ellipse(ax + 3, ay - 12, 6, 3, -0.5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    /**
+     * 8. VALIDASI IDENTITAS & NAVIGASI LAYAR
+     */
+    function validateAndSaveIdentity() {
+      const namaInput = document.getElementById('input-nama').value.trim();
+      const kelasInput = document.getElementById('input-kelas').value.trim();
+      const jurusanRadio = document.querySelector('input[name="jurusan"]:checked');
+
+      if (!namaInput) {
+        showToast('Silakan masukkan Nama Lengkap Siswa terlebih dahulu!', 'error');
+        document.getElementById('input-nama').focus();
+        return false;
+      }
+      if (!kelasInput) {
+        showToast('Silakan masukkan Kelas (contoh: X DKV 1) terlebih dahulu!', 'error');
+        document.getElementById('input-kelas').focus();
+        return false;
+      }
+
+      state.student.name = namaInput;
+      state.student.kelas = kelasInput;
+      state.student.jurusan = jurusanRadio ? jurusanRadio.value : 'DKV';
+      return true;
+    }
+
+    function switchScreen(screenId) {
+      ['screen-home', 'screen-study', 'screen-game', 'screen-certificate'].forEach(id => {
+        document.getElementById(id).classList.add('hidden');
+      });
+      document.getElementById(screenId).classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function backToHome() {
+      switchScreen('screen-home');
+    }
+
+    /**
+     * 9. LAYAR MATERI PEMBELAJARAN
+     */
+    function openStudyScreen() {
+      renderStudyTabs();
+      renderStudyContent(state.studyTopicIndex);
+      switchScreen('screen-study');
+    }
+
+    function renderStudyTabs() {
+      const tabsEl = document.getElementById('study-tabs');
+      tabsEl.innerHTML = STUDY_MATERIALS.map((m, idx) => `
+        <button onclick="selectStudyTopic(${idx})"
+          class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition ${idx === state.studyTopicIndex ? 'bg-blue-800 text-white shadow-sm' : 'bg-white text-slate-600 hover:bg-slate-200'}">
+          <i class="fa-solid ${m.icon}"></i>
+          <span>${m.title}</span>
+        </button>
+      `).join('');
+    }
+
+    function selectStudyTopic(idx) {
+      state.studyTopicIndex = idx;
+      renderStudyTabs();
+      renderStudyContent(idx);
+    }
+
+    function changeStudyTopic(delta) {
+      const next = state.studyTopicIndex + delta;
+      if (next >= 0 && next < STUDY_MATERIALS.length) {
+        selectStudyTopic(next);
+      }
+    }
+
+    function renderStudyContent(idx) {
+      const mat = STUDY_MATERIALS[idx];
+      const container = document.getElementById('study-content');
+      container.innerHTML = `
+        <div class="animate-pop">
+          <div class="flex items-center gap-3 mb-4 pb-3 border-b border-slate-100">
+            <div class="w-11 h-11 rounded-2xl bg-blue-100 text-blue-800 flex items-center justify-center text-xl shrink-0">
+              <i class="fa-solid ${mat.icon}"></i>
+            </div>
+            <div>
+              <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">Pokok Bahasan ${idx + 1} dari ${STUDY_MATERIALS.length}</span>
+              <h3 class="text-lg sm:text-xl font-extrabold text-slate-900">${mat.subtitle}</h3>
+            </div>
+          </div>
+          ${mat.content}
+        </div>
+      `;
+
+      document.getElementById('btn-prev-topic').disabled = idx === 0;
+      document.getElementById('btn-prev-topic').classList.toggle('opacity-40', idx === 0);
+      document.getElementById('btn-next-topic').disabled = idx === STUDY_MATERIALS.length - 1;
+      document.getElementById('btn-next-topic').classList.toggle('opacity-40', idx === STUDY_MATERIALS.length - 1);
+    }
+
+    /**
+     * 10. ENGINE GAME ULAR EDUKASI (3 LEVEL)
+     */
+    function getLevelConfig(level) {
+      // Level 1: Santai (190ms/tick, 25 detik jawab soal)
+      // Level 2: Lebih Cepat (145ms/tick, 18 detik jawab soal)
+      // Level 3: Cepat (110ms/tick, 12 detik jawab soal)
+      if (level === 1) return { speedMs: 190, quizTime: 25, label: 'Level 1: Pemula' };
+      if (level === 2) return { speedMs: 145, quizTime: 18, label: 'Level 2: Menengah' };
+      return { speedMs: 110, quizTime: 12, label: 'Level 3: Mahir' };
+    }
+
+    function shuffleArray(arr) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function startNewGame() {
+      if (!validateAndSaveIdentity()) return;
+
+      // Reset state game
+      clearTimeout(state.game.gameLoopTimeout);
+      clearInterval(state.game.quizTimerInterval);
+
+      state.game.level = 1;
+      state.game.score = 0;
+      state.game.lives = 3;
+      state.game.answeredCount = 0;
+      state.game.isPaused = false;
+      state.game.isQuizOpen = false;
+      state.game.isRunning = true;
+
+      // Ambil 10 soal acak dari bank soal
+      state.game.questionPool = shuffleArray(QUESTION_BANK).slice(0, state.game.totalQuestions);
+
+      // Update HUD Identitas
+      const colorObj = SNAKE_COLORS[state.customization.colorIndex];
+      const avatarDot = document.getElementById('hud-avatar-dot');
+      avatarDot.style.backgroundColor = colorObj.head;
+      avatarDot.textContent = state.student.jurusan;
+      document.getElementById('hud-nama').textContent = state.student.name;
+      document.getElementById('hud-kelas').textContent = `${state.student.kelas} • ${state.student.jurusan}`;
+
+      resetSnakePosition();
+      spawnApple();
+      updateHUD();
+
+      document.getElementById('overlay-pause').classList.add('hidden');
+      document.getElementById('overlay-levelup').classList.add('hidden');
+      document.getElementById('quiz-modal').classList.add('hidden');
+
+      switchScreen('screen-game');
+      resizeGameCanvas();
+      scheduleNextTick();
+    }
+
+    function resetSnakePosition() {
+      const mid = Math.floor(state.game.gridSize / 2);
+      state.game.snake = [
+        { x: mid, y: mid },
+        { x: mid - 1, y: mid },
+        { x: mid - 2, y: mid }
+      ];
+      state.game.dir = { x: 1, y: 0 };
+      state.game.nextDir = { x: 1, y: 0 };
+    }
+
+    function spawnApple() {
+      const g = state.game.gridSize;
+      let valid = false;
+      let pos = { x: 5, y: 5 };
+      while (!valid) {
+        pos.x = Math.floor(Math.random() * g);
+        pos.y = Math.floor(Math.random() * g);
+        valid = !state.game.snake.some(seg => seg.x === pos.x && seg.y === pos.y);
+      }
+      state.game.apple = pos;
+    }
+
+    function updateHUD() {
+      document.getElementById('hud-level').textContent = state.game.level;
+      document.getElementById('hud-progress').textContent = state.game.answeredCount;
+      document.getElementById('hud-score').textContent = state.game.score;
+
+      const livesEl = document.getElementById('hud-lives');
+      let heartsHTML = '';
+      for (let i = 0; i < 3; i++) {
+        if (i < state.game.lives) {
+          heartsHTML += '<i class="fa-solid fa-heart text-rose-600"></i>';
+        } else {
+          heartsHTML += '<i class="fa-regular fa-heart text-rose-300"></i>';
+        }
+      }
+      livesEl.innerHTML = heartsHTML;
+
+      // Update tombol pause
+      const pauseIcon = document.getElementById('pause-icon');
+      const pauseText = document.getElementById('pause-text');
+      if (state.game.isPaused) {
+        pauseIcon.className = 'fa-solid fa-play';
+        pauseText.textContent = 'Resume';
+      } else {
+        pauseIcon.className = 'fa-solid fa-pause';
+        pauseText.textContent = 'Pause';
+      }
+    }
+
+    function scheduleNextTick() {
+      clearTimeout(state.game.gameLoopTimeout);
+      if (!state.game.isRunning || state.game.isPaused || state.game.isQuizOpen) return;
+
+      const cfg = getLevelConfig(state.game.level);
+      state.game.gameLoopTimeout = setTimeout(() => {
+        gameTick();
+      }, cfg.speedMs);
+    }
+
+    function gameTick() {
+      if (!state.game.isRunning || state.game.isPaused || state.game.isQuizOpen) return;
+
+      // Terapkan arah gerak berikutnya
+      state.game.dir = { ...state.game.nextDir };
+      const head = state.game.snake[0];
+      const newHead = {
+        x: head.x + state.game.dir.x,
+        y: head.y + state.game.dir.y
+      };
+
+      const g = state.game.gridSize;
+      // Cek tabrakan dinding atau tubuh sendiri
+      const hitWall = newHead.x < 0 || newHead.x >= g || newHead.y < 0 || newHead.y >= g;
+      const hitSelf = state.game.snake.some((seg, idx) => idx !== 0 && seg.x === newHead.x && seg.y === newHead.y);
+
+      if (hitWall || hitSelf) {
+        handleSnakeCrash();
+        return;
+      }
+
+      // Masukkan kepala baru
+      state.game.snake.unshift(newHead);
+
+      // Cek apakah memakan apel
+      if (newHead.x === state.game.apple.x && newHead.y === state.game.apple.y) {
+        sfx.eat();
+        renderGameCanvas();
+        triggerQuizModal();
+        return; // Jeda loop game selama kuis terbuka
+      } else {
+        state.game.snake.pop();
+      }
+
+      renderGameCanvas();
+      scheduleNextTick();
+    }
+
+    function handleSnakeCrash() {
+      sfx.crash();
+      state.game.lives -= 1;
+      updateHUD();
+
+      if (state.game.lives <= 0) {
+        showToast('Nyawa habis! Menampilkan hasil evaluasi dan sertifikatmu.', 'error');
+        endGameAndShowCertificate();
+      } else {
+        showToast(`Ups, ular menabrak! Sisa nyawa: ${state.game.lives}. Posisi di-reset.`, 'warning');
+        resetSnakePosition();
+        renderGameCanvas();
+        scheduleNextTick();
+      }
+    }
+
+    /**
+     * 11. RENDER KANVAS GAME ULAR
+     */
+    function resizeGameCanvas() {
+      const wrapper = document.getElementById('canvas-wrapper');
+      const canvas = document.getElementById('game-canvas');
+      if (!wrapper || !canvas) return;
+      const size = wrapper.clientWidth;
+      if (size > 0) {
+        canvas.width = size;
+        canvas.height = size;
+        renderGameCanvas();
+      }
+    }
+
+    window.addEventListener('resize', () => {
+      if (!document.getElementById('screen-game').classList.contains('hidden')) {
+        resizeGameCanvas();
+      }
+    });
+
+    function renderGameCanvas() {
+      const canvas = document.getElementById('game-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const size = canvas.width;
+      const g = state.game.gridSize;
+      const cell = size / g;
+
+      // Background papan catur studio gelap
+      ctx.fillStyle = '#0f172a';
+      ctx.fillRect(0, 0, size, size);
+
+      for (let r = 0; r < g; r++) {
+        for (let c = 0; c < g; c++) {
+          if ((r + c) % 2 === 0) {
+            ctx.fillStyle = 'rgba(30, 41, 59, 0.55)';
+            ctx.fillRect(c * cell, r * cell, cell, cell);
+          }
+        }
+      }
+
+      // Gambar Apel Ilmu
+      const ax = (state.game.apple.x + 0.5) * cell;
+      const ay = (state.game.apple.y + 0.5) * cell;
+      const appleR = cell * 0.38;
+
+      // Cahaya di sekitar apel
+      const glow = ctx.createRadialGradient(ax, ay, 2, ax, ay, appleR * 1.8);
+      glow.addColorStop(0, 'rgba(244, 63, 94, 0.45)');
+      glow.addColorStop(1, 'rgba(244, 63, 94, 0)');
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(ax, ay, appleR * 1.8, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Buah apel
+      ctx.fillStyle = '#ef4444';
+      ctx.beginPath();
+      ctx.arc(ax, ay + 1, appleR, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Kilau apel
+      ctx.fillStyle = 'rgba(255,255,255,0.45)';
+      ctx.beginPath();
+      ctx.arc(ax - appleR * 0.3, ay - appleR * 0.25, appleR * 0.25, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Daun apel
+      ctx.fillStyle = '#22c55e';
+      ctx.beginPath();
+      ctx.ellipse(ax + 2, ay - appleR * 0.95, appleR * 0.45, appleR * 0.22, -0.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Gambar Badan Ular (dari ekor ke leher)
+      const colorObj = SNAKE_COLORS[state.customization.colorIndex];
+      const accObj = SNAKE_ACCESSORIES[state.customization.accessoryIndex];
+
+      for (let i = state.game.snake.length - 1; i >= 1; i--) {
+        const seg = state.game.snake[i];
+        const sx = (seg.x + 0.5) * cell;
+        const sy = (seg.y + 0.5) * cell;
+        const ratio = 1 - (i / (state.game.snake.length + 4)) * 0.3;
+        const segR = cell * 0.42 * ratio;
+
+        ctx.fillStyle = colorObj.body;
+        ctx.strokeStyle = colorObj.border;
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.arc(sx, sy, segR, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+      }
+
+      // Gambar Kepala Ular dengan Aksesoris
+      if (state.game.snake.length > 0) {
+        const head = state.game.snake[0];
+        const hx = (head.x + 0.5) * cell;
+        const hy = (head.y + 0.5) * cell;
+        drawSnakeHeadWithAccessory(ctx, hx, hy, cell * 0.46, state.game.dir, colorObj, accObj.id);
+      }
+    }
+
+    /**
+     * 12. KONTROL INPUT KEYBOARD, D-PAD VIRTUAL & SWIPE TOUCH
+     */
+    function handleDirectionInput(direction) {
+      if (!state.game.isRunning || state.game.isPaused || state.game.isQuizOpen) return;
+      const cur = state.game.dir;
+
+      if (direction === 'UP' && cur.y !== 1) {
+        state.game.nextDir = { x: 0, y: -1 };
+      } else if (direction === 'DOWN' && cur.y !== -1) {
+        state.game.nextDir = { x: 0, y: 1 };
+      } else if (direction === 'LEFT' && cur.x !== 1) {
+        state.game.nextDir = { x: -1, y: 0 };
+      } else if (direction === 'RIGHT' && cur.x !== -1) {
+        state.game.nextDir = { x: 1, y: 0 };
+      }
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (!state.game.isRunning || state.game.isQuizOpen) return;
+      const key = e.key.toLowerCase();
+      if (['arrowup', 'arrowdown', 'arrowleft', 'arrowright', ' '].includes(key)) {
+        e.preventDefault();
+      }
+      if (key === 'arrowup' || key === 'w') handleDirectionInput('UP');
+      else if (key === 'arrowdown' || key === 's') handleDirectionInput('DOWN');
+      else if (key === 'arrowleft' || key === 'a') handleDirectionInput('LEFT');
+      else if (key === 'arrowright' || key === 'd') handleDirectionInput('RIGHT');
+      else if (key === 'p') togglePauseGame();
+    });
+
+    // Dukungan Gestur Swipe di Layar Sentuh pada Kanvas Game
+    let touchStartX = 0;
+    let touchStartY = 0;
+    const canvasWrapper = document.getElementById('canvas-wrapper');
+    canvasWrapper.addEventListener('touchstart', (e) => {
+      if (e.touches.length > 0) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }
+    }, { passive: true });
+
+    canvasWrapper.addEventListener('touchmove', (e) => {
+      if (state.game.isRunning && !state.game.isPaused && !state.game.isQuizOpen) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    canvasWrapper.addEventListener('touchend', (e) => {
+      if (!state.game.isRunning || state.game.isPaused || state.game.isQuizOpen) return;
+      if (e.changedTouches.length > 0) {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        const dy = e.changedTouches[0].clientY - touchStartY;
+        if (Math.abs(dx) > 22 || Math.abs(dy) > 22) {
+          if (Math.abs(dx) > Math.abs(dy)) {
+            handleDirectionInput(dx > 0 ? 'RIGHT' : 'LEFT');
+          } else {
+            handleDirectionInput(dy > 0 ? 'DOWN' : 'UP');
+          }
+        }
+      }
+    }, { passive: true });
+
+    /**
+     * 13. SISTEM KUIS INTERAKTIF SAAT APEL DIMAKAN
+     */
+    function triggerQuizModal() {
+      state.game.isQuizOpen = true;
+      state.game.quizAnswered = false;
+
+      const qIndex = state.game.answeredCount;
+      const questionObj = state.game.questionPool[qIndex];
+      state.game.currentQuestion = questionObj;
+
+      const cfg = getLevelConfig(state.game.level);
+      state.game.quizMaxTime = cfg.quizTime;
+      state.game.quizTimeLeft = cfg.quizTime;
+
+      // Isi tampilan modal kuis
+      document.getElementById('quiz-topic-badge').textContent = questionObj.topic;
+      document.getElementById('quiz-number').textContent = qIndex + 1;
+      document.getElementById('quiz-question').textContent = questionObj.q;
+      document.getElementById('quiz-timer').textContent = state.game.quizTimeLeft;
+      document.getElementById('quiz-timer-bar').style.width = '100%';
+      document.getElementById('quiz-timer-bar').className = 'h-full bg-amber-500 transition-all duration-200';
+
+      const feedbackEl = document.getElementById('quiz-feedback');
+      feedbackEl.classList.add('hidden');
+
+      const letters = ['A', 'B', 'C', 'D'];
+      const optionsEl = document.getElementById('quiz-options');
+      optionsEl.innerHTML = questionObj.options.map((opt, idx) => `
+        <button type="button" onclick="submitQuizAnswer(${idx})" id="quiz-opt-${idx}"
+          class="w-full p-3.5 rounded-2xl border-2 border-slate-200 bg-slate-50 hover:bg-blue-50 hover:border-blue-400 text-left flex items-center gap-3 transition group">
+          <span class="w-8 h-8 rounded-xl bg-white border border-slate-300 group-hover:bg-blue-700 group-hover:text-white group-hover:border-blue-700 font-extrabold text-sm flex items-center justify-center shrink-0 transition">
+            ${letters[idx]}
+          </span>
+          <span class="text-xs sm:text-sm font-semibold text-slate-800">${opt}</span>
+        </button>
+      `).join('');
+
+      document.getElementById('quiz-modal').classList.remove('hidden');
+
+      // Jalankan countdown timer menjawab soal
+      clearInterval(state.game.quizTimerInterval);
+      state.game.quizTimerInterval = setInterval(() => {
+        if (state.game.quizAnswered) return;
+        state.game.quizTimeLeft -= 1;
+        document.getElementById('quiz-timer').textContent = Math.max(0, state.game.quizTimeLeft);
+
+        const pct = Math.max(0, (state.game.quizTimeLeft / state.game.quizMaxTime) * 100);
+        const bar = document.getElementById('quiz-timer-bar');
+        bar.style.width = `${pct}%`;
+        if (pct <= 30) {
+          bar.className = 'h-full bg-rose-500 transition-all duration-200';
+        }
+
+        if (state.game.quizTimeLeft <= 0) {
+          clearInterval(state.game.quizTimerInterval);
+          submitQuizAnswer(-1); // Waktu habis
+        }
+      }, 1000);
+    }
+
+    function submitQuizAnswer(selectedIndex) {
+      if (state.game.quizAnswered) return;
+      state.game.quizAnswered = true;
+      clearInterval(state.game.quizTimerInterval);
+
+      const qObj = state.game.currentQuestion;
+      const isCorrect = selectedIndex === qObj.answer;
+
+      // Kunci semua tombol jawaban & beri warna indikator
+      qObj.options.forEach((_, idx) => {
+        const btn = document.getElementById(`quiz-opt-${idx}`);
+        btn.disabled = true;
+        if (idx === qObj.answer) {
+          btn.className = 'w-full p-3.5 rounded-2xl border-2 border-emerald-600 bg-emerald-50 text-left flex items-center gap-3';
+          btn.querySelector('span:first-child').className = 'w-8 h-8 rounded-xl bg-emerald-600 text-white font-extrabold text-sm flex items-center justify-center shrink-0';
+        } else if (idx === selectedIndex && !isCorrect) {
+          btn.className = 'w-full p-3.5 rounded-2xl border-2 border-rose-500 bg-rose-50 text-left flex items-center gap-3';
+          btn.querySelector('span:first-child').className = 'w-8 h-8 rounded-xl bg-rose-600 text-white font-extrabold text-sm flex items-center justify-center shrink-0';
+        } else {
+          btn.classList.add('opacity-50');
+        }
+      });
+
+      const feedbackEl = document.getElementById('quiz-feedback');
+      const feedbackTitle = document.getElementById('quiz-feedback-title');
+      const feedbackDesc = document.getElementById('quiz-feedback-desc');
+
+      if (isCorrect) {
+        sfx.correct();
+        state.game.score += 10;
+        feedbackEl.className = 'rounded-2xl p-4 text-sm border border-emerald-300 bg-emerald-50 text-emerald-950 space-y-2 animate-pop';
+        feedbackTitle.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-600 text-lg"></i> <span>Jawaban Benar! (+10 Poin)</span>';
+      } else {
+        sfx.wrong();
+        // Jika salah, ekor ular tidak bertambah panjang (potong 1 segmen yang tadi ditambah)
+        if (state.game.snake.length > 3) {
+          state.game.snake.pop();
+        }
+        const reason = selectedIndex === -1 ? 'Waktu Habis!' : 'Jawaban Kurang Tepat!';
+        feedbackEl.className = 'rounded-2xl p-4 text-sm border border-rose-300 bg-rose-50 text-rose-950 space-y-2 animate-pop';
+        feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-600 text-lg"></i> <span>${reason} (+0 Poin)</span>`;
+      }
+
+      feedbackDesc.innerHTML = `<strong>Pembahasan:</strong> ${qObj.explanation}`;
+      feedbackEl.classList.remove('hidden');
+
+      state.game.answeredCount += 1;
+      updateHUD();
+    }
+
+    function closeQuizAndResume() {
+      document.getElementById('quiz-modal').classList.add('hidden');
+      state.game.isQuizOpen = false;
+
+      // Cek apakah semua 10 soal sudah selesai
+      if (state.game.answeredCount >= state.game.totalQuestions) {
+        endGameAndShowCertificate();
+        return;
+      }
+
+      // Cek kenaikan level:
+      // Soal 1-3 = Level 1 | Soal 4-6 = Level 2 | Soal 7-10 = Level 3
+      let targetLevel = 1;
+      if (state.game.answeredCount >= 6) targetLevel = 3;
+      else if (state.game.answeredCount >= 3) targetLevel = 2;
+
+      spawnApple();
+      renderGameCanvas();
+
+      if (targetLevel > state.game.level) {
+        state.game.level = targetLevel;
+        updateHUD();
+        triggerLevelUpOverlay(targetLevel);
+      } else {
+        scheduleNextTick();
+      }
+    }
+
+    function triggerLevelUpOverlay(newLevel) {
+      sfx.levelUp();
+      const cfg = getLevelConfig(newLevel);
+      const overlay = document.getElementById('overlay-levelup');
+      document.getElementById('levelup-title').textContent = cfg.label;
+      document.getElementById('levelup-desc').textContent =
+        `Kecepatan ular semakin tinggi dan batas waktu menjawab soal sekarang ${cfg.quizTime} detik!`;
+
+      overlay.classList.remove('hidden');
+      state.game.isPaused = true;
+
+      setTimeout(() => {
+        overlay.classList.add('hidden');
+        state.game.isPaused = false;
+        updateHUD();
+        scheduleNextTick();
+      }, 2200);
+    }
+
+    /**
+     * 14. MENU KONTROL DALAM GAME (PAUSE, STOP, RELOAD, MENU UTAMA)
+     */
+    function togglePauseGame() {
+      if (!state.game.isRunning || state.game.isQuizOpen) return;
+      state.game.isPaused = !state.game.isPaused;
+      updateHUD();
+
+      const overlay = document.getElementById('overlay-pause');
+      if (state.game.isPaused) {
+        clearTimeout(state.game.gameLoopTimeout);
+        overlay.classList.remove('hidden');
+      } else {
+        overlay.classList.add('hidden');
+        scheduleNextTick();
+      }
+    }
+
+    function openConfirmModal(title, desc, onConfirm) {
+      const wasPaused = state.game.isPaused;
+      if (!wasPaused && state.game.isRunning && !state.game.isQuizOpen) {
+        state.game.isPaused = true;
+        clearTimeout(state.game.gameLoopTimeout);
+        updateHUD();
+      }
+
+      document.getElementById('confirm-title').textContent = title;
+      document.getElementById('confirm-desc').textContent = desc;
+      const yesBtn = document.getElementById('confirm-yes-btn');
+      yesBtn.onclick = () => {
+        document.getElementById('confirm-modal').classList.add('hidden');
+        onConfirm();
+      };
+      document.getElementById('confirm-modal').classList.remove('hidden');
+    }
+
+    function closeConfirmModal() {
+      document.getElementById('confirm-modal').classList.add('hidden');
+      if (state.game.isRunning && !state.game.isQuizOpen && document.getElementById('overlay-pause').classList.contains('hidden')) {
+        state.game.isPaused = false;
+        updateHUD();
+        scheduleNextTick();
+      }
+    }
+
+    function confirmStopGame() {
+      openConfirmModal(
+        'Hentikan Game & Lihat Sertifikat?',
+        `Permainan akan dihentikan dan skor saat ini (${state.game.score} poin) akan ditampilkan pada sertifikat.`,
+        () => {
+          endGameAndShowCertificate();
+        }
+      );
+    }
+
+    function reloadGame() {
+      if (!document.getElementById('screen-certificate').classList.contains('hidden')) {
+        startNewGame();
+        return;
+      }
+      openConfirmModal(
+        'Ulangi Permainan dari Awal?',
+        'Skor dan level akan diatur ulang kembali ke Level 1 (0 poin).',
+        () => {
+          startNewGame();
+          showToast('Permainan dimulai ulang dari Level 1!', 'info');
+        }
+      );
+    }
+
+    function returnToMainMenu() {
+      if (!document.getElementById('screen-certificate').classList.contains('hidden')) {
+        state.game.isRunning = false;
+        switchScreen('screen-home');
+        return;
+      }
+      openConfirmModal(
+        'Kembali ke Menu Utama?',
+        'Progress permainan saat ini tidak akan disimpan.',
+        () => {
+          state.game.isRunning = false;
+          clearTimeout(state.game.gameLoopTimeout);
+          clearInterval(state.game.quizTimerInterval);
+          switchScreen('screen-home');
+        }
+      );
+    }
+
+    /**
+     * 15. HALAMAN SERTIFIKAT KELULUSAN & PENILAIAN OTOMATIS
+     */
+    function endGameAndShowCertificate() {
+      state.game.isRunning = false;
+      state.game.isPaused = false;
+      state.game.isQuizOpen = false;
+      clearTimeout(state.game.gameLoopTimeout);
+      clearInterval(state.game.quizTimerInterval);
+      document.getElementById('quiz-modal').classList.add('hidden');
+
+      sfx.finish();
+
+      // Isi data identitas siswa di sertifikat
+      document.getElementById('cert-nama').textContent = state.student.name;
+      document.getElementById('cert-kelas').textContent = state.student.kelas;
+      const jurusanFull = state.student.jurusan === 'DKV'
+        ? 'Desain Komunikasi Visual (DKV)'
+        : 'Manajemen Perkantoran (MP)';
+      document.getElementById('cert-jurusan').textContent = jurusanFull;
+
+      // Tanggal hari ini dalam format Indonesia
+      const now = new Date();
+      const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+      document.getElementById('cert-date').textContent = `Pasuruan, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+
+      // Hitung Predikat Kelulusan berdasarkan aturan:
+      // 100 = Lulus Istimewa
+      // > 65 dan < 100 (66 - 99) = Lulus Terbaik
+      // <= 65 = Tidak Lulus
+      const finalScore = state.game.score;
+      document.getElementById('cert-score').textContent = finalScore;
+
+      const statusBox = document.getElementById('cert-status-box');
+      const predikatEl = document.getElementById('cert-predikat');
+      const motivasiEl = document.getElementById('cert-motivasi');
+
+      if (finalScore === 100) {
+        statusBox.className = 'px-5 py-2.5 rounded-xl border-2 border-amber-500 bg-amber-100 text-amber-900 shadow-sm text-center';
+        predikatEl.innerHTML = '<i class="fa-solid fa-crown text-amber-600 mr-1.5"></i>LULUS ISTIMEWA';
+        motivasiEl.textContent = '"Sempurna! Kamu menguasai seluruh materi Sketsa dan Ilustrasi dengan nilai maksimal 100."';
+      } else if (finalScore > 65) {
+        statusBox.className = 'px-5 py-2.5 rounded-xl border-2 border-blue-600 bg-blue-100 text-blue-900 shadow-sm text-center';
+        predikatEl.innerHTML = '<i class="fa-solid fa-award text-blue-700 mr-1.5"></i>LULUS TERBAIK';
+        motivasiEl.textContent = '"Selamat! Hasil yang sangat baik. Terus asah kemampuan menggambar dan visualisasimu."';
+      } else {
+        statusBox.className = 'px-5 py-2.5 rounded-xl border-2 border-rose-500 bg-rose-100 text-rose-900 shadow-sm text-center';
+        predikatEl.innerHTML = '<i class="fa-solid fa-rotate-left text-rose-600 mr-1.5"></i>TIDAK LULUS';
+        motivasiEl.textContent = '"Jangan menyerah! Silakan pelajari kembali modul Sketsa & Ilustrasi lalu coba bermain lagi."';
+      }
+
+      switchScreen('screen-certificate');
+    }
+
+    /**
+     * 16. INISIALISASI SAAT HALAMAN DIMUAT
+     */
+    window.onload = function () {
+      initCustomizationUI();
+    };
+  </script>
+</body>
+</html>
